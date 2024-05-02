@@ -57,15 +57,19 @@ public class CameraController : MonoBehaviour
         _controls.CameraMovement.SecondaryTouchContact.started += _ => ZoomStart();
         _controls.CameraMovement.SecondaryTouchContact.canceled += _ => ZoomEnd();
         _controls.CameraMovement.PrimaryTouchContact.canceled += _ => ZoomEnd();
+        _controls.CameraMovement.Zoom.started += _ => ZoomStart();
+        _controls.CameraMovement.Zoom.canceled += _ => ZoomEnd();
     }
 
     private void ZoomStart()
     {
+        Debug.Log("zoom start");
         _zoomCoroutine = StartCoroutine(ZoomDetection());
     } 
     
     private void ZoomEnd()
     {
+        Debug.Log("zoom end");
         StopCoroutine(_zoomCoroutine);
     }
     
@@ -76,6 +80,8 @@ public class CameraController : MonoBehaviour
         while (true)
         {
             distance = Vector2.Distance(_controls.CameraMovement.PrimaryFingerPosition.ReadValue<Vector2>(), _controls.CameraMovement.SecondaryFingerPosition.ReadValue<Vector2>());
+            distance += _controls.CameraMovement.Zoom.ReadValue<Vector2>().y;
+            Debug.Log( _controls.CameraMovement.Zoom.ReadValue<Vector2>().y);
 
             if (distance > previousDistance && _mainCamera.orthographicSize > _minZoom)
             {

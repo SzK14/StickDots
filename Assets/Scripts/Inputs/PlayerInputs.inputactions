@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "28ae9f33-87cb-47cf-9d80-da09431a4f51",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "PrimaryFingerPosition",
                     "type": "Value",
                     "id": "f33d0572-05be-4c9e-9d06-5d8b3e8f2336",
@@ -104,6 +113,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PrimaryTouchContact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77e8e7b3-2dc9-491c-bfa1-ecb93a2184ba",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

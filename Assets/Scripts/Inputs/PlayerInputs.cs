@@ -37,6 +37,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""28ae9f33-87cb-47cf-9d80-da09431a4f51"",
+                    ""expectedControlType"": ""Delta"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""PrimaryFingerPosition"",
                     ""type"": ""Value"",
                     ""id"": ""f33d0572-05be-4c9e-9d06-5d8b3e8f2336"",
@@ -128,6 +137,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""PrimaryTouchContact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77e8e7b3-2dc9-491c-bfa1-ecb93a2184ba"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -137,6 +157,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         // CameraMovement
         m_CameraMovement = asset.FindActionMap("CameraMovement", throwIfNotFound: true);
         m_CameraMovement_Drag = m_CameraMovement.FindAction("Drag", throwIfNotFound: true);
+        m_CameraMovement_Zoom = m_CameraMovement.FindAction("Zoom", throwIfNotFound: true);
         m_CameraMovement_PrimaryFingerPosition = m_CameraMovement.FindAction("PrimaryFingerPosition", throwIfNotFound: true);
         m_CameraMovement_SecondaryFingerPosition = m_CameraMovement.FindAction("SecondaryFingerPosition", throwIfNotFound: true);
         m_CameraMovement_PrimaryTouchContact = m_CameraMovement.FindAction("PrimaryTouchContact", throwIfNotFound: true);
@@ -203,6 +224,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_CameraMovement;
     private List<ICameraMovementActions> m_CameraMovementActionsCallbackInterfaces = new List<ICameraMovementActions>();
     private readonly InputAction m_CameraMovement_Drag;
+    private readonly InputAction m_CameraMovement_Zoom;
     private readonly InputAction m_CameraMovement_PrimaryFingerPosition;
     private readonly InputAction m_CameraMovement_SecondaryFingerPosition;
     private readonly InputAction m_CameraMovement_PrimaryTouchContact;
@@ -212,6 +234,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         private @PlayerInputs m_Wrapper;
         public CameraMovementActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Drag => m_Wrapper.m_CameraMovement_Drag;
+        public InputAction @Zoom => m_Wrapper.m_CameraMovement_Zoom;
         public InputAction @PrimaryFingerPosition => m_Wrapper.m_CameraMovement_PrimaryFingerPosition;
         public InputAction @SecondaryFingerPosition => m_Wrapper.m_CameraMovement_SecondaryFingerPosition;
         public InputAction @PrimaryTouchContact => m_Wrapper.m_CameraMovement_PrimaryTouchContact;
@@ -228,6 +251,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Drag.started += instance.OnDrag;
             @Drag.performed += instance.OnDrag;
             @Drag.canceled += instance.OnDrag;
+            @Zoom.started += instance.OnZoom;
+            @Zoom.performed += instance.OnZoom;
+            @Zoom.canceled += instance.OnZoom;
             @PrimaryFingerPosition.started += instance.OnPrimaryFingerPosition;
             @PrimaryFingerPosition.performed += instance.OnPrimaryFingerPosition;
             @PrimaryFingerPosition.canceled += instance.OnPrimaryFingerPosition;
@@ -247,6 +273,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Drag.started -= instance.OnDrag;
             @Drag.performed -= instance.OnDrag;
             @Drag.canceled -= instance.OnDrag;
+            @Zoom.started -= instance.OnZoom;
+            @Zoom.performed -= instance.OnZoom;
+            @Zoom.canceled -= instance.OnZoom;
             @PrimaryFingerPosition.started -= instance.OnPrimaryFingerPosition;
             @PrimaryFingerPosition.performed -= instance.OnPrimaryFingerPosition;
             @PrimaryFingerPosition.canceled -= instance.OnPrimaryFingerPosition;
@@ -279,6 +308,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     public interface ICameraMovementActions
     {
         void OnDrag(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
         void OnPrimaryFingerPosition(InputAction.CallbackContext context);
         void OnSecondaryFingerPosition(InputAction.CallbackContext context);
         void OnPrimaryTouchContact(InputAction.CallbackContext context);
