@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,17 +60,18 @@ public class CameraController : MonoBehaviour
         _controls.CameraMovement.PrimaryTouchContact.canceled += _ => ZoomEnd();
         _controls.CameraMovement.Zoom.started += _ => ZoomStart();
         _controls.CameraMovement.Zoom.canceled += _ => ZoomEnd();
+
     }
 
     private void ZoomStart()
     {
-        Debug.Log("zoom start");
+        //Debug.Log("zoom start");
         _zoomCoroutine = StartCoroutine(ZoomDetection());
     } 
     
     private void ZoomEnd()
     {
-        Debug.Log("zoom end");
+        //Debug.Log("zoom end");
         StopCoroutine(_zoomCoroutine);
     }
     
@@ -81,7 +83,6 @@ public class CameraController : MonoBehaviour
         {
             distance = Vector2.Distance(_controls.CameraMovement.PrimaryFingerPosition.ReadValue<Vector2>(), _controls.CameraMovement.SecondaryFingerPosition.ReadValue<Vector2>());
             distance += _controls.CameraMovement.Zoom.ReadValue<Vector2>().y;
-            Debug.Log( _controls.CameraMovement.Zoom.ReadValue<Vector2>().y);
 
             if (distance > previousDistance && _mainCamera.orthographicSize > _minZoom)
             {
@@ -99,12 +100,32 @@ public class CameraController : MonoBehaviour
     }
 
 
-
+    
     //Method that drags the camera around the scene
-    public void OnDrag(InputAction.CallbackContext ctx)
+    public void OnDrag_Start(InputAction.CallbackContext ctx)
     {
-        if (ctx.started) _origin = GetMousePosition();
-        _isDragging = ctx.started || ctx.performed;
+        if (!IsOnDot())
+        {
+            if (ctx.started) _origin = GetMousePosition();
+            _isDragging = ctx.started || ctx.performed;
+        }
+    }
+
+    private bool IsOnDot()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Check if the ray hits an object with the "dot" tag
+        if (Physics.Raycast(ray, out hit))
+        {
+            // if raycast hit dot and 
+            if (hit.collider != null && hit.collider.CompareTag("dot"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     //Late update method to check if the user is dragging the camera and updates its position

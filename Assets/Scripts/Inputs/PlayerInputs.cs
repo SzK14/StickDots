@@ -28,12 +28,21 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             ""id"": ""e56cb1d9-21d4-4680-a317-36e1e758aa43"",
             ""actions"": [
                 {
-                    ""name"": ""Drag"",
+                    ""name"": ""Drag_Start"",
                     ""type"": ""Button"",
                     ""id"": ""20a0e43e-db39-4c08-a435-4dbd1403ff00"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drag_End"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6691bfc-a76a-4b6c-a61f-bb45ac8b8b98"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -85,12 +94,23 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""45054228-9633-47c2-b078-c529a2abc2e4"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""f67bf710-8568-4cef-b148-0552892306e8"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Drag"",
+                    ""action"": ""Drag_Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""877d32c1-54ea-4859-b753-deebd65b5bfc"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag_Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -148,6 +168,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""933b56d3-c01b-412e-92f0-46214476d923"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag_End"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d701c2f8-35e0-4247-8de0-43b47f4fcb32"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag_End"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -156,7 +198,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
 }");
         // CameraMovement
         m_CameraMovement = asset.FindActionMap("CameraMovement", throwIfNotFound: true);
-        m_CameraMovement_Drag = m_CameraMovement.FindAction("Drag", throwIfNotFound: true);
+        m_CameraMovement_Drag_Start = m_CameraMovement.FindAction("Drag_Start", throwIfNotFound: true);
+        m_CameraMovement_Drag_End = m_CameraMovement.FindAction("Drag_End", throwIfNotFound: true);
         m_CameraMovement_Zoom = m_CameraMovement.FindAction("Zoom", throwIfNotFound: true);
         m_CameraMovement_PrimaryFingerPosition = m_CameraMovement.FindAction("PrimaryFingerPosition", throwIfNotFound: true);
         m_CameraMovement_SecondaryFingerPosition = m_CameraMovement.FindAction("SecondaryFingerPosition", throwIfNotFound: true);
@@ -223,7 +266,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     // CameraMovement
     private readonly InputActionMap m_CameraMovement;
     private List<ICameraMovementActions> m_CameraMovementActionsCallbackInterfaces = new List<ICameraMovementActions>();
-    private readonly InputAction m_CameraMovement_Drag;
+    private readonly InputAction m_CameraMovement_Drag_Start;
+    private readonly InputAction m_CameraMovement_Drag_End;
     private readonly InputAction m_CameraMovement_Zoom;
     private readonly InputAction m_CameraMovement_PrimaryFingerPosition;
     private readonly InputAction m_CameraMovement_SecondaryFingerPosition;
@@ -233,7 +277,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     {
         private @PlayerInputs m_Wrapper;
         public CameraMovementActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Drag => m_Wrapper.m_CameraMovement_Drag;
+        public InputAction @Drag_Start => m_Wrapper.m_CameraMovement_Drag_Start;
+        public InputAction @Drag_End => m_Wrapper.m_CameraMovement_Drag_End;
         public InputAction @Zoom => m_Wrapper.m_CameraMovement_Zoom;
         public InputAction @PrimaryFingerPosition => m_Wrapper.m_CameraMovement_PrimaryFingerPosition;
         public InputAction @SecondaryFingerPosition => m_Wrapper.m_CameraMovement_SecondaryFingerPosition;
@@ -248,9 +293,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CameraMovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CameraMovementActionsCallbackInterfaces.Add(instance);
-            @Drag.started += instance.OnDrag;
-            @Drag.performed += instance.OnDrag;
-            @Drag.canceled += instance.OnDrag;
+            @Drag_Start.started += instance.OnDrag_Start;
+            @Drag_Start.performed += instance.OnDrag_Start;
+            @Drag_Start.canceled += instance.OnDrag_Start;
+            @Drag_End.started += instance.OnDrag_End;
+            @Drag_End.performed += instance.OnDrag_End;
+            @Drag_End.canceled += instance.OnDrag_End;
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
@@ -270,9 +318,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(ICameraMovementActions instance)
         {
-            @Drag.started -= instance.OnDrag;
-            @Drag.performed -= instance.OnDrag;
-            @Drag.canceled -= instance.OnDrag;
+            @Drag_Start.started -= instance.OnDrag_Start;
+            @Drag_Start.performed -= instance.OnDrag_Start;
+            @Drag_Start.canceled -= instance.OnDrag_Start;
+            @Drag_End.started -= instance.OnDrag_End;
+            @Drag_End.performed -= instance.OnDrag_End;
+            @Drag_End.canceled -= instance.OnDrag_End;
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
@@ -307,7 +358,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     public CameraMovementActions @CameraMovement => new CameraMovementActions(this);
     public interface ICameraMovementActions
     {
-        void OnDrag(InputAction.CallbackContext context);
+        void OnDrag_Start(InputAction.CallbackContext context);
+        void OnDrag_End(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnPrimaryFingerPosition(InputAction.CallbackContext context);
         void OnSecondaryFingerPosition(InputAction.CallbackContext context);
