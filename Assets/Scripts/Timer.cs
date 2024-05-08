@@ -64,7 +64,7 @@ public class Timer : MonoBehaviour
     public void StartTimer()
     {
         int seconds = TimeForEachTurn;
-        timeRemaining = seconds;
+        timeRemaining = seconds + 1;
         originalTime = timeRemaining;
         isRunning = true;
     }
