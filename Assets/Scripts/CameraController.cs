@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
 
     //Check to see if the user is dragging the camera around
     private bool _isDragging;
+    private bool touchInput;
 
     //Player Touch Inputs 
     private PlayerInputs _controls;
@@ -60,7 +61,16 @@ public class CameraController : MonoBehaviour
         _controls.CameraMovement.PrimaryTouchContact.canceled += _ => ZoomEnd();
         _controls.CameraMovement.Zoom.started += _ => ZoomStart();
         _controls.CameraMovement.Zoom.canceled += _ => ZoomEnd();
-
+        _controls.CameraMovement.PrimaryTouchContact.started += _ => OnTouch();
+        _controls.CameraMovement.PrimaryTouchContact.canceled += _ => OnTouchEnd();
+        
+    }
+    private void OnTouch()
+    {
+        touchInput = true;
+    }
+    private void OnTouchEnd() {
+        touchInput = false;
     }
 
     private void ZoomStart()
@@ -106,7 +116,7 @@ public class CameraController : MonoBehaviour
     {
         if (!IsOnDot())
         {
-            if (ctx.started) _origin = GetMousePosition();
+            if (ctx.started) _origin = GetInputPosition();
             _isDragging = ctx.started || ctx.performed;
         }
     }
@@ -132,8 +142,10 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (!_isDragging) return;
-        
-        _difference = GetMousePosition() - transform.position;
+        Vector2 flatpos = new Vector2(transform.position.x, transform.position.y);
+
+        _difference = GetInputPosition() - flatpos;
+        _difference.z = 1;
         transform.position = _origin - _difference;
 
         // Restricts the camera movement by vector values
@@ -162,6 +174,31 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, _maxXY.y, transform.position.z);
         }
 
+    }
+
+    private Vector2 GetInputPosition()
+    {
+        //if there is touch input
+        if (touchInput)
+        {
+            Debug.Log("finger position");
+            return GetFingerPosition();
+        }
+        else
+        {
+            Debug.Log("mousePosition");
+            return GetMousePosition();
+        }        
+    }
+
+    private Vector2 GetFingerPosition()
+    {
+        
+        Vector3 FingerPos = _controls.CameraMovement.PrimaryFingerPosition.ReadValue<Vector2>();
+
+        FingerPos.z = 1;
+
+        return _mainCamera.ScreenToWorldPoint(FingerPos);
     }
 
     //Method that retrieves the current mouse position
