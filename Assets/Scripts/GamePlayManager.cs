@@ -15,6 +15,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] public PlayerColor[] playerColor;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] private GameObject playerContainer;
+
     //TODO: WHEN INTEGRATING COLOR PICKER
     //[SerializeField] private TextMeshProUGUI currentPlayerName;
     public Player[] players;
@@ -30,6 +31,7 @@ public class GamePlayManager : MonoBehaviour
     public int PlayersCount => playerCount;
     public int H => _h;
     public int W => _w;
+    private bool isGameFinished = false;
 
     private void Awake()
     {
@@ -56,7 +58,6 @@ public class GamePlayManager : MonoBehaviour
     // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
         if (scene.name == "04_Local_Multiplayer")
             CreateBoardOfSize();
     }
@@ -72,8 +73,10 @@ public class GamePlayManager : MonoBehaviour
             EndTurn();
         }
 
-        if (_board != null && _board.AvailableLines.Count == 0)
+        if (_board != null && _board.AvailableLines.Count == 0 && !isGameFinished)
         {
+            isGameFinished = true;
+            UIManager.Instance.GameEndPageActive(true);
             Debug.Log("Game Over");
 
             PlayGameOverAudio();
