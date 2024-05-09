@@ -108,7 +108,7 @@ public class PlayerContainer : MonoBehaviour
                 avatorList[i].transform.SetSiblingIndex(newSiblingIndex);
             }
 
-            Debug.Log("index"+index);
+            //Debug.Log("index"+index);
             StartCoroutine(MoveToPos(avatorList[i], posList[index]));
         }
         times+=1;
