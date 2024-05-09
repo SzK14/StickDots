@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using FMODUnity;
+using FMOD.Studio;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -24,7 +26,8 @@ public class GamePlayManager : MonoBehaviour
     private Board _board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
 
-    [SerializeField] private AudioClip gameOverAudioClip;
+    //[SerializeField] private AudioClip gameOverAudioClip;
+    [SerializeField] private EventReference _captureSFX;
     private AudioSource audioSource;
 
     public int PlayersCount => playerCount;
@@ -191,13 +194,14 @@ public class GamePlayManager : MonoBehaviour
     public void CaptureBox(Vector3 boxCoordAndCapturedBy)
     {
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
+        FMODUnity.RuntimeManager.PlayOneShot(_captureSFX);
     }
 
     private void PlayGameOverAudio()
     {
-        if (gameOverAudioClip != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(gameOverAudioClip);
-        }
+        // if (gameOverAudioClip != null && audioSource != null)
+        // {
+        //     audioSource.PlayOneShot(gameOverAudioClip);
+        // }
     }
 }

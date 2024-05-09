@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2370969270049080523}
   - component: {fileID: 6046626344044852419}
   - component: {fileID: 309983391670929118}
+  - component: {fileID: 7893618246945172323}
+  - component: {fileID: 4513680925602520060}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -103,7 +105,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  size: 0
+  _captureSFX:
+    Guid:
+      Data1: 241258278
+      Data2: 1136659482
+      Data3: 1410593702
+      Data4: -1745492853
+    Path: event:/BoxCapture
 --- !u!114 &6046626344044852419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +142,42 @@ MonoBehaviour:
   _LineDrawablePrefab: {fileID: 3126319451227240524, guid: cef9e070a88da1749b6ff11692d1ee5f, type: 3}
   _LineDrawable: {fileID: 0}
   _LineStaticPrefab: {fileID: 3126319451227240524, guid: cef9e070a88da1749b6ff11692d1ee5f, type: 3}
+--- !u!114 &7893618246945172323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346012913508034521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32350f7a9762234abb134242e538382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuMusic:
+    Guid:
+      Data1: 1038991027
+      Data2: 1169879775
+      Data3: -97716847
+      Data4: 1289237222
+    Path: event:/MenuMusic
+  _ingameMusic:
+    Guid:
+      Data1: -1157180827
+      Data2: 1316461200
+      Data3: -36602744
+      Data4: 1157399223
+    Path: event:/GameMusic
+--- !u!114 &4513680925602520060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346012913508034521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cf1789d76ce6241b2d179e2e67547f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneChangeEvent: {fileID: 11400000, guid: 1bf4bcca22922f34aa6e8cb6ce46b6e1, type: 2}
