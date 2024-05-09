@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
@@ -34,6 +35,12 @@ public class CameraController : MonoBehaviour
     //Player Touch Inputs 
     private PlayerInputs _controls;
 
+    //record original position for reset
+    private Vector3 cameraStartingPosition;
+
+    //reset camera when the game end
+    [SerializeField] public UnityEvent gameEndEvent;
+
     //Awake method to initialize the camera
     private void Awake()
     {
@@ -45,12 +52,14 @@ public class CameraController : MonoBehaviour
     private void OnEnable()
     {
         _controls.Enable();
+        gameEndEvent.AddListener(ResetCamera);
     }
 
     //Function that disable touch controls
     private void OnDisable()
     {
         _controls.Disable();
+        gameEndEvent.RemoveListener(ResetCamera);
     }
 
     //Start function where we detect the touch controls
@@ -114,6 +123,7 @@ public class CameraController : MonoBehaviour
     //Method that drags the camera around the scene
     public void OnDrag_Start(InputAction.CallbackContext ctx)
     {
+        // if click on dot, don't drag
         if (!IsOnDot())
         {
             if (ctx.started) _origin = GetInputPosition();
@@ -121,6 +131,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    //method that check if the player is clicking on dot.
     private bool IsOnDot()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -175,7 +186,7 @@ public class CameraController : MonoBehaviour
         }
 
     }
-
+    //method that decide to use finger position or mouse position as input
     private Vector2 GetInputPosition()
     {
         //if there is touch input
@@ -190,7 +201,7 @@ public class CameraController : MonoBehaviour
             return GetMousePosition();
         }        
     }
-
+    //Method that retrieves the current Finger touch position for touch device
     private Vector2 GetFingerPosition()
     {
         
@@ -216,15 +227,63 @@ public class CameraController : MonoBehaviour
     public void SetCamera(float startSize, Vector3 startPos, float minZoom, float maxZoom, Vector2 minXY, Vector2 maxXY)
     {
         _mainCamera.orthographicSize = startSize;
-        _mainCamera.transform.position = startPos;
-        _mainCamera.transform.position = new Vector3(_mainCamera.transform.position.x, _mainCamera.transform.position.y, -5f);
+        cameraStartingPosition = startPos;
+        cameraStartingPosition.z = -5f;
+        _mainCamera.transform.position = cameraStartingPosition;
         _minZoom = minZoom;
         _maxZoom = maxZoom;
 
         // Minimum and maximum XY values for camera movement
         _minXY = minXY;
         _maxXY = maxXY;
-
-
     }
+
+    [SerializeField] private AnimationCurve animationCurve;
+    [SerializeField] private float resetAnimationDuration = 0.5f;
+    private float resetCameraTimer = 0f;
+
+    public void ResetCamera()
+    {
+        resetCameraTimer = resetAnimationDuration;
+        _controls.CameraMovement.Disable();
+        GetComponent<PlayerInput>().currentActionMap.Disable();
+        StartCoroutine(ResetCameraLoop(_mainCamera.orthographicSize,_mainCamera.transform.position));
+    }
+
+    IEnumerator ResetCameraLoop(float currentZoom, Vector3 currentPos)
+    {
+        float timeElapse = Time.deltaTime;
+        while (resetCameraTimer > 0f)
+        {
+            float scale = animationCurve.Evaluate(1 - resetCameraTimer / resetAnimationDuration);
+            _mainCamera.orthographicSize = currentZoom + ((_maxZoom - currentZoom) * scale );
+            _mainCamera.transform.position = currentPos + ((cameraStartingPosition - currentPos) * scale);
+            yield return new WaitForSeconds(timeElapse);
+            resetCameraTimer -= timeElapse;
+        }
+        //_mainCamera.orthographicSize = _maxZoom;
+        //_mainCamera.transform.position = cameraStartingPosition;
+        _controls.CameraMovement.Enable();
+        GetComponent<PlayerInput>().currentActionMap.Enable();
+    }
+
+
+    /// <summary>
+    /// update function simulate event calling
+    /// remove the following when event is ready
+    /// </summary>    
+
+    [SerializeField] public bool gameEndEvent_TestingBool;
+
+    private void Update()
+    {
+        if (gameEndEvent_TestingBool)
+        {
+            gameEndEvent_TestingBool = false;
+            ResetCamera();
+        }
+    }
+
+    ////////////////////////////////////
+
 }
