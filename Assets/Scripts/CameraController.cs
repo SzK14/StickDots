@@ -24,6 +24,10 @@ public class CameraController : MonoBehaviour
     Vector3 _minXY;
     Vector3 _maxXY;
 
+    //XY offset for camera panning
+    [SerializeField] float offsetX = 1f;
+    [SerializeField] float offsetY = 1f;
+
     private Coroutine _zoomCoroutine;
 
     [SerializeField] private float _cameraSpeed = 4f;
@@ -162,27 +166,27 @@ public class CameraController : MonoBehaviour
         // Restricts the camera movement by vector values
 
         // Left
-        if (transform.position.x < _minXY.x)
+        if (transform.position.x < _minXY.x + offsetX)
         {
-            transform.position = new Vector3(_minXY.x, transform.position.y, transform.position.z);
+            transform.position = new Vector3(_minXY.x + offsetX, transform.position.y, transform.position.z);
         }
 
         // Right
-        if (transform.position.x > _maxXY.x)
+        if (transform.position.x > _maxXY.x - offsetX)
         {
-            transform.position = new Vector3(_maxXY.x, transform.position.y, transform.position.z);
+            transform.position = new Vector3(_maxXY.x - offsetX, transform.position.y, transform.position.z);
         }
 
         // Bottom
-        if (transform.position.y < _minXY.y)
+        if (transform.position.y < _minXY.y + offsetY)
         {
-            transform.position = new Vector3(transform.position.x, _minXY.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x, _minXY.y + offsetY, transform.position.z);
         }
 
         // Top
-        if (transform.position.y > _maxXY.y)
+        if (transform.position.y > _maxXY.y - offsetY)
         {
-            transform.position = new Vector3(transform.position.x, _maxXY.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x, _maxXY.y - offsetY, transform.position.z);
         }
 
     }
@@ -242,6 +246,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float resetAnimationDuration = 0.5f;
     private float resetCameraTimer = 0f;
 
+    //function triggered when game end
     public void ResetCamera()
     {
         resetCameraTimer = resetAnimationDuration;
@@ -249,7 +254,7 @@ public class CameraController : MonoBehaviour
         GetComponent<PlayerInput>().currentActionMap.Disable();
         StartCoroutine(ResetCameraLoop(_mainCamera.orthographicSize,_mainCamera.transform.position));
     }
-
+    //for animation on reseting camera
     IEnumerator ResetCameraLoop(float currentZoom, Vector3 currentPos)
     {
         float timeElapse = Time.deltaTime;
