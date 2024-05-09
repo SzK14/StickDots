@@ -63,14 +63,14 @@ public class GamePlayManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            UIManager.Instance.IndicatorColorSwitch(players[currentPlayerIndex].myColor);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EndTurn();
-        }
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    UIManager.Instance.IndicatorColorSwitch(players[currentPlayerIndex].myColor);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    EndTurn();
+        //}
 
         if (_board != null && _board.AvailableLines.Count == 0)
         {
