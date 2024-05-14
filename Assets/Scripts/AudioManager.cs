@@ -41,16 +41,12 @@ public class AudioManager : MonoBehaviour
         //     audioSource.clip = backgroundMusicClip;
         //     audioSource.Play();
         // }
-        EventInstance instance =  RuntimeManager.CreateInstance(_menuMusic);
-        instance.start();
-        instance.release();
+        RuntimeManager.PlayOneShot(_menuMusic);
 
     }
 
     public void PlayInGameMusic()
     {
-        EventInstance instance =  RuntimeManager.CreateInstance(_ingameMusic);
-        instance.start();
-        instance.release();
+        RuntimeManager.PlayOneShot(_ingameMusic);
     }
 }

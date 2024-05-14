@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cf1789d76ce6241b2d179e2e67547f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneChangeEvent: {fileID: 11400000, guid: 1bf4bcca22922f34aa6e8cb6ce46b6e1, type: 2}
+  _sceneChangeEvent: {fileID: 0}
 --- !u!4 &205995969
 Transform:
   m_ObjectHideFlags: 0
@@ -8902,6 +8902,10 @@ PrefabInstance:
       propertyPath: playerColor.Array.data[3].myColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4513680925602520060, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: _sceneChangeEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bf4bcca22922f34aa6e8cb6ce46b6e1, type: 2}
     - target: {fileID: 7503299256806860460, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 445
@@ -8941,6 +8945,26 @@ PrefabInstance:
     - target: {fileID: 7503299256806860460, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893618246945172323, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: _ingameMusic.Path
+      value: event:/InGameMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893618246945172323, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: _ingameMusic.Guid.Data1
+      value: 1521925374
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893618246945172323, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: _ingameMusic.Guid.Data2
+      value: 1261521967
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893618246945172323, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: _ingameMusic.Guid.Data3
+      value: 201155220
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893618246945172323, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: _ingameMusic.Guid.Data4
+      value: 948766691
       objectReference: {fileID: 0}
     - target: {fileID: 8346012913508034521, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
       propertyPath: m_Name
