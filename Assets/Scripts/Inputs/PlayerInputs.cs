@@ -192,6 +192,34 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""NoMovement"",
+            ""id"": ""408421dc-d7a3-434a-b967-a13e88bbc280"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a5cad5d-b18a-476e-990f-0fdb805964af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fecd6733-469e-41ff-9ac4-df0f1ece778a"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -205,6 +233,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_CameraMovement_SecondaryFingerPosition = m_CameraMovement.FindAction("SecondaryFingerPosition", throwIfNotFound: true);
         m_CameraMovement_PrimaryTouchContact = m_CameraMovement.FindAction("PrimaryTouchContact", throwIfNotFound: true);
         m_CameraMovement_SecondaryTouchContact = m_CameraMovement.FindAction("SecondaryTouchContact", throwIfNotFound: true);
+        // NoMovement
+        m_NoMovement = asset.FindActionMap("NoMovement", throwIfNotFound: true);
+        m_NoMovement_Newaction = m_NoMovement.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -356,6 +387,52 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         }
     }
     public CameraMovementActions @CameraMovement => new CameraMovementActions(this);
+
+    // NoMovement
+    private readonly InputActionMap m_NoMovement;
+    private List<INoMovementActions> m_NoMovementActionsCallbackInterfaces = new List<INoMovementActions>();
+    private readonly InputAction m_NoMovement_Newaction;
+    public struct NoMovementActions
+    {
+        private @PlayerInputs m_Wrapper;
+        public NoMovementActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_NoMovement_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_NoMovement; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NoMovementActions set) { return set.Get(); }
+        public void AddCallbacks(INoMovementActions instance)
+        {
+            if (instance == null || m_Wrapper.m_NoMovementActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_NoMovementActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+        }
+
+        private void UnregisterCallbacks(INoMovementActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+        }
+
+        public void RemoveCallbacks(INoMovementActions instance)
+        {
+            if (m_Wrapper.m_NoMovementActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(INoMovementActions instance)
+        {
+            foreach (var item in m_Wrapper.m_NoMovementActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_NoMovementActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public NoMovementActions @NoMovement => new NoMovementActions(this);
     public interface ICameraMovementActions
     {
         void OnDrag_Start(InputAction.CallbackContext context);
@@ -365,5 +442,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnSecondaryFingerPosition(InputAction.CallbackContext context);
         void OnPrimaryTouchContact(InputAction.CallbackContext context);
         void OnSecondaryTouchContact(InputAction.CallbackContext context);
+    }
+    public interface INoMovementActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

@@ -108,6 +108,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraSpeed: 4
+  gameEndEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8558894590637163729}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: ResetCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0
+      outSlope: -0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.80079997
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.0059021427
+      outSlope: 0.0059021427
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.7992
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  resetAnimationDuration: 0.8
+  gameEndEvent_TestingBool: 0
 --- !u!114 &-8860608012984692423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +258,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f548499b-38b0-4c18-a4fe-bc1a4bdd1aa0
     m_ActionName: CameraMovement/SecondaryTouchContact
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a5cad5d-b18a-476e-990f-0fdb805964af
+    m_ActionName: NoMovement/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CameraMovement
