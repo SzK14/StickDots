@@ -21,7 +21,7 @@ public class GamePlayManager : MonoBehaviour
     public int currentPlayerIndex { get; private set; } = 0;
     public static GamePlayManager Instance { get; private set; }
     private int playerCount;
-    private Board _board;
+    public Board board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
 
     [SerializeField] private AudioClip gameOverAudioClip;
@@ -72,7 +72,7 @@ public class GamePlayManager : MonoBehaviour
         //    EndTurn();
         //}
 
-        if (_board != null && _board.AvailableLines.Count == 0)
+        if (board != null && board.AvailableLines.Count == 0)
         {
             Debug.Log("Game Over");
 
@@ -110,7 +110,7 @@ public class GamePlayManager : MonoBehaviour
         //TODO: WHEN INTEGRATING COLOR PICKER
         //ChangePlayerInfo();
         StartTurn();
-        _board = new Board(_h, _w);
+        board = new Board(_h, _w);
         GridGenerator.Instance.CreateBoard();
         LineController.Instance.CreateLineDrawing();
     }
@@ -177,7 +177,7 @@ public class GamePlayManager : MonoBehaviour
             lineToConnect = p1.x > p2.x ?
                 Tuple.Create(p2, p1) : Tuple.Create(p1, p2);
         }
-        int nextTurnIndex = _board.MakeMove(lineToConnect, currentPlayerIndex, true);
+        int nextTurnIndex = board.MakeMove(lineToConnect, currentPlayerIndex, true);
         if (nextTurnIndex != currentPlayerIndex)
         {
             NextTurn();
