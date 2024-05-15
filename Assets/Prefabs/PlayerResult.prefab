@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6269539174936510372}
   - component: {fileID: 1646199867354298623}
   - component: {fileID: 7687084502506520846}
-  - component: {fileID: 436247195432160894}
+  - component: {fileID: 6824182723473398684}
   m_Layer: 0
   m_Name: PlayerResult
   m_TagString: Untagged
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &436247195432160894
+--- !u!114 &6824182723473398684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 59299281747148532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f12502b2b2c428b933942a49f3966d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 24e487bcd1cc3f94ab41d0d95e95f874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rankText: {fileID: 8045284098997803730}

@@ -191,8 +191,10 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-    public void CaptureBox(Vector3 boxCoordAndCapturedBy)
+    public void CaptureBox(Vector3 boxCoordAndCapturedBy,int playerIndex)
     {
+        players[playerIndex].score += 1;
+        Debug.Log($"Player  {players[playerIndex].name}  Score  {players[playerIndex].score}");
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
     }
 

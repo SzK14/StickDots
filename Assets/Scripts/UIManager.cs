@@ -32,7 +32,6 @@ public class UIManager : MonoBehaviour
         if (GameEndPage)
         {
             GameEndPage.SetActive(active);
-            LeaderboardManager.Instance.LoadScoresAsync();
         }
     }
 }

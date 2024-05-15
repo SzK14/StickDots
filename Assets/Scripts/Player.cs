@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Player : MonoBehaviour
     public int playerIndex { get; set; }
 
     public string playerName = "Player";
+    public int score = 0;
+    public int rank = 0;
+    public bool isLocal = false;
 
     public void BeginTurn()
     {
