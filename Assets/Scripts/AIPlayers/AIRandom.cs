@@ -22,5 +22,6 @@ public class AIRandom : Player
 
         LineController.Instance.MakeLine(_choosenLine.Item1, _choosenLine.Item2);
         GamePlayManager.Instance.PlayersMove(_choosenLine.Item1, _choosenLine.Item2);
+        Debug.Log($"AI{GamePlayManager.Instance.currentPlayerIndex}: {_choosenLine.Item1}, {_choosenLine.Item2}");
     }
 }

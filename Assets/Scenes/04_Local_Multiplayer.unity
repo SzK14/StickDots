@@ -624,6 +624,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2370969270049080523, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: playerCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370969270049080523, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: AIplayerCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370969270049080523, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
       propertyPath: playerContainer
       value: 
       objectReference: {fileID: 524327149}
