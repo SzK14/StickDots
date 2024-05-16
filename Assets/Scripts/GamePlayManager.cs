@@ -19,16 +19,18 @@ public class GamePlayManager : MonoBehaviour
     //TODO: WHEN INTEGRATING COLOR PICKER
     //[SerializeField] private TextMeshProUGUI currentPlayerName;
     public Player[] players;
+    public AIRandom[] randomAIs;
     public int currentPlayerIndex { get; private set; } = 0;
     public static GamePlayManager Instance { get; private set; }
-    private int playerCount;
-    private Board _board;
+    public int playerCount;
+    public int AIplayerCount;
+    public Board board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
+
+    [SerializeField] private AudioClip gameOverAudioClip;
     [SerializeField] private BoolEventAsset _allBoxesCaptured;
 
     private bool _gameEnded;
-
-    //[SerializeField] private AudioClip gameOverAudioClip;
     [SerializeField] private EventReference _captureSFX;
 
     public int PlayersCount => playerCount;
@@ -116,7 +118,7 @@ public class GamePlayManager : MonoBehaviour
         //TODO: WHEN INTEGRATING COLOR PICKER
         //ChangePlayerInfo();
         StartTurn();
-        _board = new Board(_h, _w);
+        board = new Board(_h, _w);
         GridGenerator.Instance.CreateBoard();
         LineController.Instance.CreateLineDrawing();
     }
@@ -124,10 +126,11 @@ public class GamePlayManager : MonoBehaviour
     void InitailizePlayers()
     {
         Debug.Log("InitailizePlayers");
-        playerCount = playerColor.Length;
+        //playerCount = playerColor.Length;
         players = new Player[playerCount];
         if (players.Length == 0) { return; }
-        for (int i = 0; i < playerCount; i++)
+
+        for (int i = 0; i < playerCount - AIplayerCount; i++)
         {
             if (playerPrefab != null)
             {
@@ -140,6 +143,20 @@ public class GamePlayManager : MonoBehaviour
                 players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
+        for (int i = playerCount - AIplayerCount; i < playerCount; i++)
+        {
+
+            GameObject playerObject = Instantiate(playerPrefab);
+            playerObject.transform.parent = playerContainer.transform;
+            playerObject.name = $"player {i + 1} AI";
+            playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
+            players[i] = playerObject.AddComponent<AIRandom>();
+            players[i].GetComponent<AIRandom>().playerIndex = i;
+            players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
+            Debug.Log(players[i].GetComponent<AIRandom>().myColor);
+
+        }
+
         }
 
         playerContainer.GetComponent<PlayerContainer>().InitAvatorList(playerCount);
@@ -183,7 +200,7 @@ public class GamePlayManager : MonoBehaviour
             lineToConnect = p1.x > p2.x ?
                 Tuple.Create(p2, p1) : Tuple.Create(p1, p2);
         }
-        int nextTurnIndex = _board.MakeMove(lineToConnect, currentPlayerIndex, true);
+        int nextTurnIndex = board.MakeMove(lineToConnect, currentPlayerIndex, true);
         if (nextTurnIndex != currentPlayerIndex)
         {
             NextTurn();
