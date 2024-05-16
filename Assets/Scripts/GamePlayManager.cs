@@ -6,9 +6,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using FMODUnity;
-using FMOD.Studio;
+using GameEvents;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -25,10 +24,12 @@ public class GamePlayManager : MonoBehaviour
     private int playerCount;
     private Board _board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
+    [SerializeField] private BoolEventAsset _allBoxesCaptured;
+
+    private bool _gameEnded;
 
     //[SerializeField] private AudioClip gameOverAudioClip;
     [SerializeField] private EventReference _captureSFX;
-    private AudioSource audioSource;
 
     public int PlayersCount => playerCount;
     public int H => _h;
@@ -36,6 +37,8 @@ public class GamePlayManager : MonoBehaviour
 
     private void Awake()
     {
+        _gameEnded = false;
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -46,10 +49,10 @@ public class GamePlayManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
-    }
+    // private void Start()
+    // {
+    //     audioSource = gameObject.AddComponent<AudioSource>();
+    // }
 
     private void OnEnable()
     {
@@ -75,10 +78,10 @@ public class GamePlayManager : MonoBehaviour
         //    EndTurn();
         //}
 
-        if (_board != null && _board.AvailableLines.Count == 0)
+        if (_board != null && _board.AvailableLines.Count == 0 && !_gameEnded)
         {
             Debug.Log("Game Over");
-
+            _gameEnded = true;
             PlayGameOverAudio();
         }
     }
@@ -194,14 +197,11 @@ public class GamePlayManager : MonoBehaviour
     public void CaptureBox(Vector3 boxCoordAndCapturedBy)
     {
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
-        FMODUnity.RuntimeManager.PlayOneShot(_captureSFX);
+        RuntimeManager.PlayOneShot(_captureSFX);
     }
 
     private void PlayGameOverAudio()
     {
-        // if (gameOverAudioClip != null && audioSource != null)
-        // {
-        //     audioSource.PlayOneShot(gameOverAudioClip);
-        // }
+        _allBoxesCaptured.Invoke(true);
     }
 }

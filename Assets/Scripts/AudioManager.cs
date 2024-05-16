@@ -9,8 +9,10 @@ public class AudioManager : MonoBehaviour
     //[SerializeField] private AudioClip backgroundMusicClip;
     [SerializeField] private EventReference _menuMusic;
     [SerializeField] private EventReference _ingameMusic;
+    [SerializeField] private EventReference _beepSound;
+    [SerializeField] private EventReference _allBoxesSFX;
 
-    private AudioSource audioSource;
+    private EventInstance _audioInstance;
 
     private void Awake()
     {
@@ -24,29 +26,39 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        // audioSource = gameObject.AddComponent<AudioSource>();
-        // audioSource.loop = true;
-
-        // if (backgroundMusicClip != null)
-        // {
             PlayBackgroundMusic();
-        // }
     }
 
     public void PlayBackgroundMusic()
     {
-        // if (backgroundMusicClip != null && !audioSource.isPlaying)
-        // {
-        //     audioSource.clip = backgroundMusicClip;
-        //     audioSource.Play();
-        // }
-        RuntimeManager.PlayOneShot(_menuMusic);
-
+        PlayAudio(_menuMusic);
     }
 
     public void PlayInGameMusic()
     {
-        RuntimeManager.PlayOneShot(_ingameMusic);
+        StopAudio();
+        PlayAudio(_ingameMusic);
+    }
+
+    public void PlayBeepSound()
+    {
+        PlayAudio(_beepSound);
+    }
+
+    public void PlayAllBoxesCaptured()
+    {
+        PlayAudio(_allBoxesSFX);
+    }
+
+    private void PlayAudio(EventReference reference)
+    {
+        _audioInstance = RuntimeManager.CreateInstance(reference);
+        _audioInstance.start();
+        _audioInstance.release();
+    }
+
+    public void StopAudio()
+    {
+        _audioInstance.stop(STOP_MODE.IMMEDIATE);
     }
 }
