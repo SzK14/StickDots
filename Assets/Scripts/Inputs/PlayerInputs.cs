@@ -89,6 +89,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DoubleTap"",
+                    ""type"": ""Button"",
+                    ""id"": ""4cb1e168-9e7a-4c62-aa8b-d3e2801eea17"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -190,6 +199,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Drag_End"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8bcaae7-71a3-407f-ae47-8eb7c81523c4"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleTap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98c11269-49a6-4027-bb9b-68d10f837730"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DoubleTap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -233,6 +264,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_CameraMovement_SecondaryFingerPosition = m_CameraMovement.FindAction("SecondaryFingerPosition", throwIfNotFound: true);
         m_CameraMovement_PrimaryTouchContact = m_CameraMovement.FindAction("PrimaryTouchContact", throwIfNotFound: true);
         m_CameraMovement_SecondaryTouchContact = m_CameraMovement.FindAction("SecondaryTouchContact", throwIfNotFound: true);
+        m_CameraMovement_DoubleTap = m_CameraMovement.FindAction("DoubleTap", throwIfNotFound: true);
         // NoMovement
         m_NoMovement = asset.FindActionMap("NoMovement", throwIfNotFound: true);
         m_NoMovement_Newaction = m_NoMovement.FindAction("New action", throwIfNotFound: true);
@@ -304,6 +336,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_CameraMovement_SecondaryFingerPosition;
     private readonly InputAction m_CameraMovement_PrimaryTouchContact;
     private readonly InputAction m_CameraMovement_SecondaryTouchContact;
+    private readonly InputAction m_CameraMovement_DoubleTap;
     public struct CameraMovementActions
     {
         private @PlayerInputs m_Wrapper;
@@ -315,6 +348,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @SecondaryFingerPosition => m_Wrapper.m_CameraMovement_SecondaryFingerPosition;
         public InputAction @PrimaryTouchContact => m_Wrapper.m_CameraMovement_PrimaryTouchContact;
         public InputAction @SecondaryTouchContact => m_Wrapper.m_CameraMovement_SecondaryTouchContact;
+        public InputAction @DoubleTap => m_Wrapper.m_CameraMovement_DoubleTap;
         public InputActionMap Get() { return m_Wrapper.m_CameraMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -345,6 +379,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @SecondaryTouchContact.started += instance.OnSecondaryTouchContact;
             @SecondaryTouchContact.performed += instance.OnSecondaryTouchContact;
             @SecondaryTouchContact.canceled += instance.OnSecondaryTouchContact;
+            @DoubleTap.started += instance.OnDoubleTap;
+            @DoubleTap.performed += instance.OnDoubleTap;
+            @DoubleTap.canceled += instance.OnDoubleTap;
         }
 
         private void UnregisterCallbacks(ICameraMovementActions instance)
@@ -370,6 +407,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @SecondaryTouchContact.started -= instance.OnSecondaryTouchContact;
             @SecondaryTouchContact.performed -= instance.OnSecondaryTouchContact;
             @SecondaryTouchContact.canceled -= instance.OnSecondaryTouchContact;
+            @DoubleTap.started -= instance.OnDoubleTap;
+            @DoubleTap.performed -= instance.OnDoubleTap;
+            @DoubleTap.canceled -= instance.OnDoubleTap;
         }
 
         public void RemoveCallbacks(ICameraMovementActions instance)
@@ -442,6 +482,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnSecondaryFingerPosition(InputAction.CallbackContext context);
         void OnPrimaryTouchContact(InputAction.CallbackContext context);
         void OnSecondaryTouchContact(InputAction.CallbackContext context);
+        void OnDoubleTap(InputAction.CallbackContext context);
     }
     public interface INoMovementActions
     {
