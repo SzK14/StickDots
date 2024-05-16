@@ -4,93 +4,34 @@ using UnityEngine;
 
 public class EmojiController : MonoBehaviour
 {
-    public static EmojiController instance;
-
     [SerializeField] private GameObject emojiPrefab;
     [SerializeField] private string emojiAnimation;
+    [SerializeField] private Transform spawnTransform; // This should be the players position 
+    [SerializeField] private bool canSpawnEmoji = true;
     [SerializeField] private float emojiLifeTime = 5f;
-
-    private Queue<EmojiQueueItem> emojiQueue = new Queue<EmojiQueueItem>();
-    private bool canSpawnEmoji = true;
 
     private void Awake()
     {
-        instance = this;
-    }
-
-    public void EnqueueEmoji(int emojiIndex, string userId)
-    {
-        EmojiQueueItem item = new EmojiQueueItem(emojiIndex, userId);
-        emojiQueue.Enqueue(item);
-    }
-
-    private void Start()
-    {
-        StartCoroutine(EmojiPlayback());
-    }
-
-    private IEnumerator EmojiPlayback()
-    {
-        while (true)
-        {
-            if (emojiQueue.Count > 0 && canSpawnEmoji)
-            {
-                EmojiQueueItem item = emojiQueue.Dequeue();
-                StartCoroutine(SpawnEmoji(item));
-            }
-            yield return new WaitForSeconds(emojiLifeTime);
-        }
-    }
-
-    private IEnumerator SpawnEmoji(EmojiQueueItem item)
-    {
-        canSpawnEmoji = false;
-
-        GameObject avatar = GetAvatarByUserId(item.UserId);
-        if (avatar != null)
-        {
-            StartCoroutine(ScaleAvatar(avatar));
-            GameObject emojiInstance = Instantiate(emojiPrefab, avatar.transform.position, Quaternion.identity);
-            emojiInstance.GetComponentInChildren<Animator>().Play(emojiAnimation);
-            Destroy(emojiInstance, emojiLifeTime);
-        }
-
-        yield return new WaitForSeconds(emojiLifeTime);
+        spawnTransform = GameObject.FindGameObjectWithTag("EmojiSpawn").transform;
         canSpawnEmoji = true;
     }
 
-    private IEnumerator ScaleAvatar(GameObject avatar)
+    public void SpawnEmoji()
     {
-        Vector3 originalScale = avatar.transform.localScale;
-        Vector3 targetScale = originalScale * 1.2f;
-        float duration = 0.5f;
-
-        float time = 0;
-        while (time < duration)
+        if(canSpawnEmoji)
         {
-            avatar.transform.localScale = Vector3.Lerp(originalScale, targetScale, time / duration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        avatar.transform.localScale = originalScale;
+            canSpawnEmoji = false;
+            StartCoroutine(EmojiCooldown());
+            // Instatiates an emoji at the player's emoji transform
+            GameObject emojiInstance = Instantiate(emojiPrefab, spawnTransform);
+            emojiInstance.GetComponentInChildren<Animator>().Play(emojiAnimation);
+            Destroy(emojiInstance, emojiLifeTime);
+        }     
     }
 
-    private GameObject GetAvatarByUserId(string userId)
+    IEnumerator EmojiCooldown()
     {
-        GameObject avatar = GameObject.Find(userId);
-        return avatar;
-    }
-}
-
-public class EmojiQueueItem
-{
-    public int EmojiIndex;
-    public string UserId;
-
-    public EmojiQueueItem(int emojiIndex, string userId)
-    {
-        EmojiIndex = emojiIndex;
-        UserId = userId;
+        yield return new WaitForSeconds(emojiLifeTime);
+        canSpawnEmoji = true;
     }
 }
