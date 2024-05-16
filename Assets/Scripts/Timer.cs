@@ -36,13 +36,13 @@ public class Timer : MonoBehaviour
             {
                 if (timeRemaining <= 10 && timeRemaining > 5)
                 {
-                    if (beepSound != null)
-                        AudioSource.PlayClipAtPoint(beepSound, transform.position);
+                    if (beepSound != null) ;
+                        //AudioSource.PlayClipAtPoint(beepSound, transform.position);
                 }
                 else if (timeRemaining <= 5)
                 {
-                    if (beepSound != null)
-                        AudioSource.PlayClipAtPoint(beepSound, transform.position);
+                    if (beepSound != null) ;                        //AudioSource.PlayClipAtPoint(beepSound, transform.position);
+
                 }
             }
 
@@ -64,7 +64,7 @@ public class Timer : MonoBehaviour
     public void StartTimer()
     {
         int seconds = TimeForEachTurn;
-        timeRemaining = seconds;
+        timeRemaining = seconds + 1;
         originalTime = timeRemaining;
         isRunning = true;
     }
