@@ -80,7 +80,7 @@ public class GamePlayManager : MonoBehaviour
         //    EndTurn();
         //}
 
-        if (_board != null && _board.AvailableLines.Count == 0 && !_gameEnded)
+        if (board != null && board.AvailableLines.Count == 0 && !_gameEnded)
         {
             Debug.Log("Game Over");
             _gameEnded = true;
@@ -143,6 +143,7 @@ public class GamePlayManager : MonoBehaviour
                 players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
+        }
         for (int i = playerCount - AIplayerCount; i < playerCount; i++)
         {
 
@@ -154,8 +155,6 @@ public class GamePlayManager : MonoBehaviour
             players[i].GetComponent<AIRandom>().playerIndex = i;
             players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
             Debug.Log(players[i].GetComponent<AIRandom>().myColor);
-
-        }
 
         }
 
