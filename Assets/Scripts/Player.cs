@@ -10,13 +10,13 @@ public class Player : MonoBehaviour
 
     public string playerName = "Player";
 
-    public void BeginTurn()
+    public virtual void BeginTurn()
     {
         isTurnActive = true;
         UIManager.Instance.IndicatorColorSwitch(myColor);
     }
 
-    public void EndTurn()
+    public virtual void EndTurn()
     {
         isTurnActive = false;
     }
