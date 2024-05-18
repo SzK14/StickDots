@@ -37,6 +37,7 @@ public class LineController : MonoBehaviour
 
     private void Start()
     {
+        photonView = PhotonView.Get(this);
         _gamePlayManager = FindAnyObjectByType<GamePlayManager>();
     }
 
@@ -109,7 +110,7 @@ public class LineController : MonoBehaviour
                     _p1.x == _p2.x && Mathf.Abs(_p1.y - _p2.y) == 1)
                 {
                     //MakeLine(_dotPositions[0], _dotPositions[1]);
-                    photonView.RPC("MakeLine", RpcTarget.All, _dotPositions[0], _dotPositions[1]);
+                    photonView.RPC("MakeLine", RpcTarget.All, (Vector2)_dotPositions[0], (Vector2)_dotPositions[1]);
 
                     Debug.Log($"Player{GamePlayManager.Instance.currentPlayerIndex}: {_p1}, {_p2}");
                     //GamePlayManager.Instance.PlayersMove(_p1, _p2);

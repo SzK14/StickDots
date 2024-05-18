@@ -50,6 +50,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void Start()
     {
+        photonView = PhotonView.Get(this);
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
