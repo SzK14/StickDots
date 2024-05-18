@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,10 @@ public class LineController : MonoBehaviour
     [SerializeField] private GameObject _LineStaticPrefab;
     GamePlayManager _gamePlayManager;
 
-
     //public Color validColor = Color.green;
     //public Color invalidColor = Color.red;
     private bool drawing = false;
+    private PhotonView photonView;
 
     private void Awake()
     {
@@ -159,7 +160,7 @@ public class LineController : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
-
+    [PunRPC]
     public void MakeLine(Vector2 p1, Vector2 p2)
     {
         /*

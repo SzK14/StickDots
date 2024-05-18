@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private AudioClip gameOverAudioClip;
     private AudioSource audioSource;
 
+    private PhotonView photonView;
+
     public int PlayersCount => playerCount;
     public int H => _h;
     public int W => _w;
@@ -59,7 +62,8 @@ public class GamePlayManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        if (scene.name == "04_Local_Multiplayer")
+        if (scene.name == "04_Local_Multiplayer" || 
+            scene.name == "05_Multiplayer")
             CreateBoardOfSize();
     }
 
@@ -180,6 +184,7 @@ public class GamePlayManager : MonoBehaviour
         StartTurn();
     }
 
+    [PunRPC]
     public void PlayersMove(Vector2 p1, Vector2 p2)
     {
         Tuple<Vector2, Vector2> lineToConnect;

@@ -37,18 +37,18 @@ public class LobbyManager : MonoBehaviour
         x = int.Parse(defaultXSize.text);
         y = int.Parse(defaultYSize.text);
 
-        string xSizeInput = createRoomPage.transform.GetChild(1).GetComponentInChildren<TMP_InputField>().text;
-        string ySizeInput = createRoomPage.transform.GetChild(2).GetComponentInChildren<TMP_InputField>().text;
+        //string xSizeInput = createRoomPage.transform.GetChild(1).GetComponentInChildren<TMP_InputField>().text;
+        //string ySizeInput = createRoomPage.transform.GetChild(2).GetComponentInChildren<TMP_InputField>().text;
 
-        if (xSizeInput != "")
-        {
-            x = int.Parse(xSizeInput);
-        }
+        //if (xSizeInput != "")
+        //{
+        //    x = int.Parse(xSizeInput);
+        //}
 
-        if (ySizeInput != "")
-        {
-            y = int.Parse(ySizeInput);
-        }
+        //if (ySizeInput != "")
+        //{
+        //    y = int.Parse(ySizeInput);
+        //}
 
         Debug.Log(x + " " + y);
 
