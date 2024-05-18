@@ -184,9 +184,15 @@ public class GamePlayManager : MonoBehaviour
         StartTurn();
     }
 
+    public void PlayersMoveRPC(Vector2 p1, Vector2 p2)
+    {
+        photonView.RPC("PlayersMove", RpcTarget.All, p1, p2);
+    }
+
     [PunRPC]
     public void PlayersMove(Vector2 p1, Vector2 p2)
     {
+        Debug.Log($"RPC called: PlayersMove");
         Tuple<Vector2, Vector2> lineToConnect;
         // If Vertical
         if (p1.x == p2.x)
