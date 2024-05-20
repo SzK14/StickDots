@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class LineController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class LineController : MonoBehaviour
     [SerializeField] private GameObject _LineDrawable;
     [SerializeField] private GameObject _LineStaticPrefab;
     GamePlayManager _gamePlayManager;
+    
+    [SerializeField] private EventReference _wrongLine;
 
 
     //public Color validColor = Color.green;
@@ -114,6 +117,10 @@ public class LineController : MonoBehaviour
 
                     //hide lineDrawable if creating new line
                     _LineDrawable.SetActive(false);
+                }
+                else
+                {
+                    RuntimeManager.PlayOneShot(_wrongLine);
                 }
             }
         }

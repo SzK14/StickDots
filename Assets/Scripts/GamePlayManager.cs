@@ -6,7 +6,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using FMODUnity;
+using GameEvents;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -27,7 +28,10 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
 
     [SerializeField] private AudioClip gameOverAudioClip;
-    private AudioSource audioSource;
+    [SerializeField] private BoolEventAsset _allBoxesCaptured;
+
+    private bool _gameEnded;
+    [SerializeField] private EventReference _captureSFX;
 
     public int PlayersCount => playerCount;
     public int H => _h;
@@ -35,6 +39,8 @@ public class GamePlayManager : MonoBehaviour
 
     private void Awake()
     {
+        _gameEnded = false;
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -45,10 +51,10 @@ public class GamePlayManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
-    }
+    // private void Start()
+    // {
+    //     audioSource = gameObject.AddComponent<AudioSource>();
+    // }
 
     private void OnEnable()
     {
@@ -74,10 +80,10 @@ public class GamePlayManager : MonoBehaviour
         //    EndTurn();
         //}
 
-        if (board != null && board.AvailableLines.Count == 0)
+        if (board != null && board.AvailableLines.Count == 0 && !_gameEnded)
         {
             Debug.Log("Game Over");
-
+            _gameEnded = true;
             PlayGameOverAudio();
         }
     }
@@ -138,7 +144,6 @@ public class GamePlayManager : MonoBehaviour
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
         }
-
         for (int i = playerCount - AIplayerCount; i < playerCount; i++)
         {
 
@@ -208,13 +213,11 @@ public class GamePlayManager : MonoBehaviour
     public void CaptureBox(Vector3 boxCoordAndCapturedBy)
     {
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
+        RuntimeManager.PlayOneShot(_captureSFX);
     }
 
     private void PlayGameOverAudio()
     {
-        if (gameOverAudioClip != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(gameOverAudioClip);
-        }
+        _allBoxesCaptured.Invoke(true);
     }
 }
