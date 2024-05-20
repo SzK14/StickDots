@@ -479,6 +479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GampleyCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7085167615374588362, guid: 1cfe162195b033147bf0776326efe67f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5788286273275277796}
     - target: {fileID: 7559901768634881255, guid: 1cfe162195b033147bf0776326efe67f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -559,7 +563,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8680677358497101806, guid: 1cfe162195b033147bf0776326efe67f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -831,6 +836,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e32350f7a9762234abb134242e538382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5788286273275277796 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1116964986561533477, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+  m_PrefabInstance: {fileID: 5788286273275277794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fe253a71ac9124387672ef45cba350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

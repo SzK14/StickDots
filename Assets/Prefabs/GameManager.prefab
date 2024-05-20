@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5845161583127130033}
   - component: {fileID: 4101787855786060510}
   - component: {fileID: 1450762342369690109}
+  - component: {fileID: 1116964986561533477}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -93,6 +94,9 @@ MonoBehaviour:
   playerPrefab: {fileID: 8067434532505438874, guid: 93dca05360d261d4ca40a7d0d4206ea7, type: 3}
   playerContainer: {fileID: 0}
   players: []
+  randomAIs: []
+  playerCount: 0
+  AIplayerCount: 0
   _boxCapturedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -109,6 +113,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  gameOverAudioClip: {fileID: 0}
   _allBoxesCaptured: {fileID: 11400000, guid: 3cd6c479c0a758541a7e258ccca53965, type: 2}
   _captureSFX:
     Guid:
@@ -317,3 +322,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1116964986561533477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346012913508034521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fe253a71ac9124387672ef45cba350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shareText: Test my share button
