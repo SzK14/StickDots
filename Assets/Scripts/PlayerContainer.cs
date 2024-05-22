@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.LookDev;
+// using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+// using static UnityEditor.Progress;
 
 public class PlayerContainer : MonoBehaviour
 {
@@ -102,7 +102,7 @@ public class PlayerContainer : MonoBehaviour
                 avatorList[i].transform.SetSiblingIndex(newSiblingIndex);
             }
 
-            Debug.Log("index"+index);
+            //Debug.Log("index"+index);
             StartCoroutine(MoveToPos(avatorList[i], posList[index]));
         }
         times+=1;
