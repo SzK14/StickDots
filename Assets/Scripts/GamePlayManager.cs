@@ -32,6 +32,7 @@ public class GamePlayManager : MonoBehaviour
     public int H => _h;
     public int W => _w;
     private bool isGameFinished = false;
+    [SerializeField] private Timer _timer;
 
     private void Awake()
     {
@@ -78,7 +79,7 @@ public class GamePlayManager : MonoBehaviour
             isGameFinished = true;
             UIManager.Instance.GameEndPageActive(true);
             Debug.Log("Game Over");
-
+            _timer.StopTimer();
             PlayGameOverAudio();
         }
     }
