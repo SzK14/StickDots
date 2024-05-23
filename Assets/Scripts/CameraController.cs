@@ -76,7 +76,7 @@ public class CameraController : MonoBehaviour
         _controls.CameraMovement.Zoom.canceled += _ => ZoomEnd();
         _controls.CameraMovement.PrimaryTouchContact.started += _ => OnTouch();
         _controls.CameraMovement.PrimaryTouchContact.canceled += _ => OnTouchEnd();
-        
+        _controls.CameraMovement.DoubleTap.performed += _ => ResetCamera();
     }
     private void OnTouch()
     {

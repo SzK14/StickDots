@@ -150,7 +150,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  resetAnimationDuration: 0.8
+  resetAnimationDuration: 0.2
   gameEndEvent_TestingBool: 0
 --- !u!114 &-8860608012984692423
 MonoBehaviour:
