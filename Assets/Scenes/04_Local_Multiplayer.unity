@@ -445,24 +445,8 @@ PrefabInstance:
       value: GameCamera
       objectReference: {fileID: 0}
     - target: {fileID: 7246004831788920610, guid: 9e1e49c4760aeca4fa86f751760d0919, type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7246004831788920610, guid: 9e1e49c4760aeca4fa86f751760d0919, type: 3}
       propertyPath: far clip plane
       value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7246004831788920610, guid: 9e1e49c4760aeca4fa86f751760d0919, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.1981132
-      objectReference: {fileID: 0}
-    - target: {fileID: 7246004831788920610, guid: 9e1e49c4760aeca4fa86f751760d0919, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.1981132
-      objectReference: {fileID: 0}
-    - target: {fileID: 7246004831788920610, guid: 9e1e49c4760aeca4fa86f751760d0919, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.1981132
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -483,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 92bc82be8a0b4454691d5c707e15f2a8, type: 3}
     - target: {fileID: 2648851173630969989, guid: 1cfe162195b033147bf0776326efe67f, type: 3}
       propertyPath: TimeForEachTurn
-      value: 20
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2776449416303004346, guid: 1cfe162195b033147bf0776326efe67f, type: 3}
       propertyPath: m_Name
@@ -639,6 +623,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2370969270049080523, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: playerCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370969270049080523, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
+      propertyPath: AIplayerCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2370969270049080523, guid: 0ef8be15719737b49b38b9da9ee1d66b, type: 3}
       propertyPath: playerContainer
       value: 
