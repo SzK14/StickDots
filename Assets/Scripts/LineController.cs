@@ -60,6 +60,12 @@ public class LineController : MonoBehaviour
     // call on finger touch event
     private void OnTouch()
     {
+
+        if (PhotonNetwork.LocalPlayer.ActorNumber - 1 !=
+            GamePlayManager.Instance.currentPlayerIndex)
+        {
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -171,11 +177,6 @@ public class LineController : MonoBehaviour
         LineRenderer lineRenderer = Instantiate(_lineRendererPrefab, _lineParent.transform);
         */
 
-        if (PhotonNetwork.LocalPlayer.ActorNumber - 1 != 
-            GamePlayManager.Instance.currentPlayerIndex)
-        {
-            return;
-        }
         GameObject lineSprite = Instantiate(_LineStaticPrefab, _lineParent.transform);
         lineSprite.GetComponentInChildren<SpriteRenderer>().color = _gamePlayManager.players[_gamePlayManager.currentPlayerIndex].myColor;
         //Vector3[] dotsToConnect = new Vector3[2];

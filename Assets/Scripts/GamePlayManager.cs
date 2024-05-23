@@ -193,12 +193,6 @@ public class GamePlayManager : MonoBehaviour
     [PunRPC]
     public void PlayersMove(Vector2 p1, Vector2 p2)
     {
-
-        if (PhotonNetwork.LocalPlayer.ActorNumber - 1!=
-            currentPlayerIndex)
-        {
-            return;
-        }
         Debug.Log($"RPC called: PlayersMove");
         Tuple<Vector2, Vector2> lineToConnect;
         // If Vertical
