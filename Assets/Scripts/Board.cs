@@ -189,7 +189,7 @@ public class Board
                 Vector3 boxCoordAndCapturedBy = isHorizontal ?
                     new Vector3(firstDotX, i, turnIndex) :
                     new Vector3(i, firstDotY, turnIndex);
-                GamePlayManager.Instance.CaptureBox(boxCoordAndCapturedBy);
+                GamePlayManager.Instance.CaptureBox(boxCoordAndCapturedBy, turnIndex);
             }
 
             index++;
