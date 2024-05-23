@@ -16,8 +16,10 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] public PlayerColor[] playerColor;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] private GameObject playerContainer;
+    
     //TODO: WHEN INTEGRATING COLOR PICKER
     //[SerializeField] private TextMeshProUGUI currentPlayerName;
+
     public Player[] players;
     public AIRandom[] randomAIs;
     public int currentPlayerIndex { get; private set; } = 0;
@@ -35,6 +37,8 @@ public class GamePlayManager : MonoBehaviour
     public int PlayersCount => playerCount;
     public int H => _h;
     public int W => _w;
+    private bool isGameFinished = false;
+    [SerializeField] private Timer _timer;
 
     private void Awake()
     {
@@ -79,11 +83,16 @@ public class GamePlayManager : MonoBehaviour
         //    EndTurn();
         //}
 
-        if (board != null && board.AvailableLines.Count == 0)
+        if (board != null && board.AvailableLines.Count == 0 && !isGameFinished)
         {
-            Debug.Log("Game Over");
+            {
+                isGameFinished = true;
+                UIManager.Instance.GameEndPageActive(true);
 
-            PlayGameOverAudio();
+                if (_timer == null) { _timer = FindFirstObjectByType<Timer>(); }
+                _timer.StopTimer();
+                PlayGameOverAudio();
+            }
         }
     }
 
@@ -113,9 +122,12 @@ public class GamePlayManager : MonoBehaviour
         //     _h = 8;
         //     _w = 8;
         // }
+
         InitailizePlayers();
+
         //TODO: WHEN INTEGRATING COLOR PICKER
         //ChangePlayerInfo();
+
         StartTurn();
         board = new Board(_h, _w);
         GridGenerator.Instance.CreateBoard();
@@ -164,6 +176,7 @@ public class GamePlayManager : MonoBehaviour
     {
         players[currentPlayerIndex].BeginTurn();
         Timer.Instance.StartTimer();
+
         //TODO: WHEN INTEGRATING COLOR PICKER
         //currentPlayerName.text = players[currentPlayerIndex].playerName.ToString();
     }
@@ -217,8 +230,10 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-    public void CaptureBox(Vector3 boxCoordAndCapturedBy)
+    public void CaptureBox(Vector3 boxCoordAndCapturedBy, int playerIndex)
     {
+        players[playerIndex].score += 1;
+        Debug.Log($"Player  {players[playerIndex].name}  Score  {players[playerIndex].score}");
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
     }
 
