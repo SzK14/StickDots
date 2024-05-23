@@ -43,6 +43,7 @@ public class GamePlayManager : MonoBehaviour
         }
 
         Instance = this;
+        
         DontDestroyOnLoad(gameObject);
     }
 
@@ -79,6 +80,7 @@ public class GamePlayManager : MonoBehaviour
             isGameFinished = true;
             UIManager.Instance.GameEndPageActive(true);
             Debug.Log("Game Over");
+            if (_timer == null) { _timer = FindFirstObjectByType<Timer>(); }
             _timer.StopTimer();
             PlayGameOverAudio();
         }
