@@ -166,9 +166,16 @@ public class LineController : MonoBehaviour
     [PunRPC]
     public void MakeLine(Vector2 p1, Vector2 p2)
     {
+
         /*
         LineRenderer lineRenderer = Instantiate(_lineRendererPrefab, _lineParent.transform);
         */
+
+        if (PhotonNetwork.LocalPlayer.ActorNumber - 1 != 
+            GamePlayManager.Instance.currentPlayerIndex)
+        {
+            return;
+        }
         GameObject lineSprite = Instantiate(_LineStaticPrefab, _lineParent.transform);
         lineSprite.GetComponentInChildren<SpriteRenderer>().color = _gamePlayManager.players[_gamePlayManager.currentPlayerIndex].myColor;
         //Vector3[] dotsToConnect = new Vector3[2];
