@@ -22,7 +22,7 @@ public class GamePlayManager : MonoBehaviour
     public int currentPlayerIndex { get; private set; } = 0;
     public static GamePlayManager Instance { get; private set; }
     private int playerCount;
-    private Board _board;
+    public Board _board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
 
     [SerializeField] private AudioClip gameOverAudioClip;
