@@ -151,7 +151,6 @@ MonoBehaviour:
   spawnTransform: {fileID: 0}
   canSpawnEmoji: 1
   emojiLifeTime: 5
-  _emojiIndex: 0
   _userIndex: 0
   _userName: 
 --- !u!95 &8101375261318974291
