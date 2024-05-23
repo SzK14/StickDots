@@ -89,6 +89,13 @@ public class LineController : MonoBehaviour
     //call on finger release event
     private void OnRelease()
     {
+
+        if (PhotonNetwork.LocalPlayer.ActorNumber - 1 !=
+            GamePlayManager.Instance.currentPlayerIndex)
+        {
+            return;
+        }
+
         //strink lineDrawable
         if (drawing)
         {
