@@ -9,7 +9,6 @@ public class ResultManager : MonoBehaviour
 {
     public ResultScoreView scoreViewPrefab;
     public Transform scoresContainer;
-    public Transform Title;
 
     private List<Player> players;
     //[SerializeField] private LeaderboardScoreView leaderboardScoreView;
