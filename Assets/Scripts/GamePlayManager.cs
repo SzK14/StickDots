@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using FMODUnity;
-using GameEvents;
+using UnityEngine.UI;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -28,10 +28,9 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
 
     [SerializeField] private AudioClip gameOverAudioClip;
-    [SerializeField] private BoolEventAsset _allBoxesCaptured;
+    private AudioSource audioSource;
 
-    private bool _gameEnded;
-    [SerializeField] private EventReference _captureSFX;
+    private PhotonView photonView;
 
     public int PlayersCount => playerCount;
     public int H => _h;
@@ -39,8 +38,6 @@ public class GamePlayManager : MonoBehaviour
 
     private void Awake()
     {
-        _gameEnded = false;
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -51,10 +48,11 @@ public class GamePlayManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // private void Start()
-    // {
-    //     audioSource = gameObject.AddComponent<AudioSource>();
-    // }
+    private void Start()
+    {
+        photonView = PhotonView.Get(this);
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     private void OnEnable()
     {
@@ -65,7 +63,8 @@ public class GamePlayManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        if (scene.name == "04_Local_Multiplayer")
+        if (scene.name == "04_Local_Multiplayer" || 
+            scene.name == "05_Multiplayer")
             CreateBoardOfSize();
     }
 
@@ -80,10 +79,10 @@ public class GamePlayManager : MonoBehaviour
         //    EndTurn();
         //}
 
-        if (board != null && board.AvailableLines.Count == 0 && !_gameEnded)
+        if (board != null && board.AvailableLines.Count == 0)
         {
             Debug.Log("Game Over");
-            _gameEnded = true;
+
             PlayGameOverAudio();
         }
     }
@@ -144,6 +143,7 @@ public class GamePlayManager : MonoBehaviour
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
         }
+
         for (int i = playerCount - AIplayerCount; i < playerCount; i++)
         {
 
@@ -185,8 +185,15 @@ public class GamePlayManager : MonoBehaviour
         StartTurn();
     }
 
+    public void PlayersMoveRPC(Vector2 p1, Vector2 p2)
+    {
+        photonView.RPC("PlayersMove", RpcTarget.All, p1, p2);
+    }
+
+    [PunRPC]
     public void PlayersMove(Vector2 p1, Vector2 p2)
     {
+        Debug.Log($"RPC called: PlayersMove");
         Tuple<Vector2, Vector2> lineToConnect;
         // If Vertical
         if (p1.x == p2.x)
@@ -213,11 +220,13 @@ public class GamePlayManager : MonoBehaviour
     public void CaptureBox(Vector3 boxCoordAndCapturedBy)
     {
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
-        RuntimeManager.PlayOneShot(_captureSFX);
     }
 
     private void PlayGameOverAudio()
     {
-        _allBoxesCaptured.Invoke(true);
+        if (gameOverAudioClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(gameOverAudioClip);
+        }
     }
 }
