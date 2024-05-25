@@ -31,7 +31,22 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined");
         PhotonNetwork.LoadLevel(sceneToLoad);
+        SetPlayerNameInRoom();
     }
 
+    public void SetPlayerName(string newName)
+    {
+        PlayerPrefs.SetString("Name", newName);
+    }
+
+    // If player has a saved name, it will become their photon nickname
+    public void SetPlayerNameInRoom()
+    {
+        if (PlayerPrefs.HasKey("Name") && PlayerPrefs.GetString("Name") != null) 
+        {
+            PhotonNetwork.NickName = PlayerPrefs.GetString("Name");
+            Debug.Log(PhotonNetwork.NickName + " has joined the room");
+        }
+    }
     
 }
