@@ -148,7 +148,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 
         StartTurn();
         board = new Board(_h, _w);
-        GridGenerator.Instance.CreateBoard();
+        //GridGenerator.Instance.CreateBoard();
+        GridGenerator.Instance.CreateBoardRPC();
         LineController.Instance.CreateLineDrawing();
     }
 
@@ -253,6 +254,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     public void CaptureBox(Vector3 boxCoordAndCapturedBy, int playerIndex)
     {
         players[playerIndex].score += 1;
+        Debug.Log($"Captured: {boxCoordAndCapturedBy.x}, {boxCoordAndCapturedBy.y}");
         Debug.Log($"Player  {players[playerIndex].name}  Score  {players[playerIndex].score}");
         _boxCapturedEvent.Invoke(boxCoordAndCapturedBy);
     }

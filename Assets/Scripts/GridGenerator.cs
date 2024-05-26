@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ public class GridGenerator : MonoBehaviour
     private Camera _mainCamera;
     private CameraController _cameraController;
     private Bounds _bounds;
+    private PhotonView photonView;
 
     private void Awake()
     {
@@ -47,9 +49,14 @@ public class GridGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        photonView = PhotonView.Get(this);
+    }
+    public void CreateBoardRPC()
+    {
+        photonView.RPC("CreateBoard", RpcTarget.AllBufferedViaServer);
     }
 
+    [PunRPC]
     public void CreateBoard()
     {
         _gridX = GamePlayManager.Instance.W;
@@ -94,7 +101,7 @@ public class GridGenerator : MonoBehaviour
     public void GenerateBackgroundBoxes()
     {
         for (int y = 0; y < _gridY - 1; y++)
-            {
+        {
             for (int x = 0; x < _gridX - 1; x++)
             {
                 Vector3 spawnLocation = 
