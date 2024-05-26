@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GamePlayManager : MonoBehaviour
+public class GamePlayManager : MonoBehaviour, IPunObservable
 {
     [SerializeField] private int _h = 4;
     [SerializeField] private int _w = 4;
@@ -24,7 +24,7 @@ public class GamePlayManager : MonoBehaviour
     public AIRandom[] randomAIs;
     public int currentPlayerIndex { get; private set; } = 0;
     public static GamePlayManager Instance { get; private set; }
-    public int playerCount;
+    private int playerCount;
     public int AIplayerCount;
     public Board board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
@@ -54,6 +54,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void Start()
     {
+        playerCount = playerColor.Length;
         photonView = PhotonView.Get(this);
         audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -93,6 +94,22 @@ public class GamePlayManager : MonoBehaviour
                 _timer.StopTimer();
                 PlayGameOverAudio();
             }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(playerColor);
+            stream.SendNext(_h);
+            stream.SendNext(_w);
+        }
+        else
+        {
+            playerColor = (PlayerColor[])stream.ReceiveNext();
+            _h = (int)stream.ReceiveNext();
+            _w = (int)stream.ReceiveNext();
         }
     }
 
