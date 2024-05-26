@@ -93,12 +93,12 @@ public class GridGenerator : MonoBehaviour
 
     public void GenerateBackgroundBoxes()
     {
-        for (int x = 0; x < _gridX - 1; x++)
-        {
-            for (int y = 0 ; y < _gridY - 1; y++)
+        for (int y = 0; y < _gridY - 1; y++)
+            {
+            for (int x = 0; x < _gridX - 1; x++)
             {
                 Vector3 spawnLocation = 
-                    new Vector3(y * _distance, x * _distance, 0f) + _boxOrigin;
+                    new Vector3(x * _distance, y * _distance, 0f) + _boxOrigin;
 
                 GameObject boxInstance = Instantiate(
                     _boxBackgroundPrefab, 

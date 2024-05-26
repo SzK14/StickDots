@@ -24,7 +24,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     public AIRandom[] randomAIs;
     public int currentPlayerIndex { get; private set; } = 0;
     public static GamePlayManager Instance { get; private set; }
-    private int playerCount;
+    [SerializeField] private int playerCount;
     public int AIplayerCount;
     public Board board;
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
@@ -54,7 +54,6 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 
     private void Start()
     {
-        playerCount = playerColor.Length;
         photonView = PhotonView.Get(this);
         audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -70,7 +69,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         Debug.Log("OnSceneLoaded: " + scene.name);
         if (scene.name == "04_Local_Multiplayer" || 
             scene.name == "05_Multiplayer")
-            CreateBoardOfSize();
+            photonView.RPC("CreateBoardOfSize", RpcTarget.AllBufferedViaServer);
+        //CreateBoardOfSize();
     }
 
     void Update()
@@ -101,13 +101,13 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(playerColor);
+            stream.SendNext(playerCount);
             stream.SendNext(_h);
             stream.SendNext(_w);
         }
         else
         {
-            playerColor = (PlayerColor[])stream.ReceiveNext();
+            playerCount = (int)stream.ReceiveNext();
             _h = (int)stream.ReceiveNext();
             _w = (int)stream.ReceiveNext();
         }
@@ -116,10 +116,11 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     public void SetBoardSize(Vector2 value)
     {
         
-        _h = (int)value.x;
-        _w = (int)value.y;
+        _h = (int)value.y;
+        _w = (int)value.x;
     }
-    
+
+    [PunRPC]
     public void CreateBoardOfSize()
     {
         Transform a = FindFirstObjectByType<UIManager>().transform;
@@ -168,7 +169,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
                 playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
                 players[i] = playerObject.AddComponent<Player>();
                 players[i].GetComponent<Player>().playerIndex = i;
-                players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
+                //players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
+                players[i].GetComponent<Player>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
         }
@@ -182,7 +184,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
             players[i] = playerObject.AddComponent<AIRandom>();
             players[i].GetComponent<AIRandom>().playerIndex = i;
-            players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
+            //players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
+            players[i].GetComponent<AIRandom>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             Debug.Log(players[i].GetComponent<AIRandom>().myColor);
 
         }
