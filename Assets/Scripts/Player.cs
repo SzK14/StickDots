@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public int playerIndex { get; set; }
 
     public string playerName = "AJ";
+    public int score = 0;
+    public int rank = 0;
 
     public virtual void BeginTurn()
     {
