@@ -13,7 +13,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 {
     [SerializeField] private int _h = 4;
     [SerializeField] private int _w = 4;
-    [SerializeField] public PlayerColor[] playerColor;
+    public PlayerColor[] playerColor;
+    [SerializeField] public Color[] selectedColors;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] private GameObject playerContainer;
     
@@ -104,12 +105,14 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             stream.SendNext(playerCount);
             stream.SendNext(_h);
             stream.SendNext(_w);
+            stream.SendNext(selectedColors);
         }
         else
         {
             playerCount = (int)stream.ReceiveNext();
             _h = (int)stream.ReceiveNext();
             _w = (int)stream.ReceiveNext();
+            selectedColors = (Color[])stream.ReceiveNext();
         }
     }
 
@@ -170,8 +173,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
                 playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
                 players[i] = playerObject.AddComponent<Player>();
                 players[i].GetComponent<Player>().playerIndex = i;
-                //players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
-                players[i].GetComponent<Player>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+                players[i].GetComponent<Player>().myColor = selectedColors[i];
+                //players[i].GetComponent<Player>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
         }
@@ -185,8 +188,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
             players[i] = playerObject.AddComponent<AIRandom>();
             players[i].GetComponent<AIRandom>().playerIndex = i;
-            //players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
-            players[i].GetComponent<AIRandom>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            players[i].GetComponent<AIRandom>().myColor = selectedColors[i];
+            //players[i].GetComponent<AIRandom>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             Debug.Log(players[i].GetComponent<AIRandom>().myColor);
 
         }

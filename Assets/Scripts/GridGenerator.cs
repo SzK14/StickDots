@@ -21,7 +21,6 @@ public class GridGenerator : MonoBehaviour
     private Camera _mainCamera;
     private CameraController _cameraController;
     private Bounds _bounds;
-    private PhotonView photonView;
 
     private void Awake()
     {
@@ -44,16 +43,6 @@ public class GridGenerator : MonoBehaviour
     private void OnValidate()
     {
 
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        photonView = PhotonView.Get(this);
-    }
-    public void CreateBoardRPC()
-    {
-        photonView.RPC("CreateBoard", RpcTarget.AllBufferedViaServer);
     }
 
     public void CreateBoard()
