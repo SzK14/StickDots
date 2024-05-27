@@ -148,8 +148,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 
         StartTurn();
         board = new Board(_h, _w);
-        //GridGenerator.Instance.CreateBoard();
-        GridGenerator.Instance.CreateBoardRPC();
+        GridGenerator.Instance.CreateBoard();
+        //GridGenerator.Instance.CreateBoardRPC();
         LineController.Instance.CreateLineDrawing();
     }
 

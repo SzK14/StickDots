@@ -56,13 +56,16 @@ public class GridGenerator : MonoBehaviour
         photonView.RPC("CreateBoard", RpcTarget.AllBufferedViaServer);
     }
 
-    [PunRPC]
     public void CreateBoard()
     {
         _gridX = GamePlayManager.Instance.W;
         _gridY = GamePlayManager.Instance.H;
         _boxCompleteScript = FindFirstObjectByType<BoxComplete>();
         _boxBackgroundsParent = _boxCompleteScript.transform;
+        foreach(Transform transform in _boxBackgroundsParent)
+        {
+            Destroy(transform.gameObject);
+        }
         GenerateGrid();
         GenerateBackgroundBoxes();
         SetCamera();
@@ -100,6 +103,7 @@ public class GridGenerator : MonoBehaviour
 
     public void GenerateBackgroundBoxes()
     {
+        _boxCompleteScript.BoxBackgrounds = new List<GameObject>();
         for (int y = 0; y < _gridY - 1; y++)
         {
             for (int x = 0; x < _gridX - 1; x++)
