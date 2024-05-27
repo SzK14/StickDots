@@ -105,14 +105,14 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             stream.SendNext(playerCount);
             stream.SendNext(_h);
             stream.SendNext(_w);
-            stream.SendNext(selectedColors);
+            //stream.SendNext(selectedColors);
         }
         else
         {
             playerCount = (int)stream.ReceiveNext();
             _h = (int)stream.ReceiveNext();
             _w = (int)stream.ReceiveNext();
-            selectedColors = (Color[])stream.ReceiveNext();
+            //selectedColors = (Color[])stream.ReceiveNext();
         }
     }
 
