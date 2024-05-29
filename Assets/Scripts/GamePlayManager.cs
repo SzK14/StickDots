@@ -85,17 +85,17 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         //    EndTurn();
         //}
 
-        if (board != null && board.AvailableLines.Count == 0 && !isGameFinished)
-        {
-            {
-                isGameFinished = true;
-                UIManager.Instance.GameEndPageActive(true);
+        //if (board != null && board.AvailableLines.Count == 0 && !isGameFinished)
+        //{
+        //    {
+        //        isGameFinished = true;
+        //        UIManager.Instance.GameEndPageActive(true);
 
-                if (_timer == null) { _timer = FindFirstObjectByType<Timer>(); }
-                _timer.StopTimer();
-                PlayGameOverAudio();
-            }
-        }
+        //        if (_timer == null) { _timer = FindFirstObjectByType<Timer>(); }
+        //        _timer.StopTimer();
+        //        PlayGameOverAudio();
+        //    }
+        //}
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
