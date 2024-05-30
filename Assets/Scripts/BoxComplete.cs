@@ -67,6 +67,9 @@ public class BoxComplete : MonoBehaviour
         activeColor.SetColor("_baclgroundColor", GamePlayManager.Instance.players[winPlayer].myColor);
         ren.material = activeColor;
 
+        //ensure the material propertie start with 0
+        ren.material.SetFloat("_HighLightOffset", 0.0f);
+
         // Add the box coordinate to the queue
         boxesToAnimate.Enqueue(boxCoordAndCapturedBy);
 
