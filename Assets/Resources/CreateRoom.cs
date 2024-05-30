@@ -19,9 +19,9 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        string code = GetRandomString(4);
-        createInputField.text = code;
-        joinInputField.text = code;
+        //string code = GetRandomString(4);
+        //createInputField.text = code;
+        //joinInputField.text = code;
     }
 
     public string GetRandomString(int length)
