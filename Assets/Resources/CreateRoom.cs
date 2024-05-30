@@ -54,11 +54,6 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
         SetPlayerNameInRoom();
     }
 
-    public void SetPlayerName(string newName)
-    {
-        PlayerPrefs.SetString("Name", newName);
-    }
-
     // If player has a saved name, it will become their photon nickname
     public void SetPlayerNameInRoom()
     {
