@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     public Color myColor = new Color(255, 0, 0);
     public int playerIndex { get; set; }
 
-    public string playerName = "Player";
+    public string playerName = "AJ";
+    public int score = 0;
+    public int rank = 0;
 
     public virtual void BeginTurn()
     {

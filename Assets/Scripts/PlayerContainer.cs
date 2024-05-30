@@ -53,21 +53,15 @@ public class PlayerContainer : MonoBehaviour
             {
                 posList.Add(new Vector2(i * layoutOffset, 0));
             }
-            Debug.Log("posList "+i + posList[i]);
         }
 
 
 
-        foreach (GameObject avator in avatorList)
-        {
-            Debug.Log(avator.name);
-        }
         Layout();
     }
 
     public void Layout()
     {
-        Debug.Log("Layout"+ avatorList.Count);
 
         if(avatorList.Count <= 0) { return; }
 
