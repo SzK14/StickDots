@@ -61,11 +61,11 @@ public class LineController : MonoBehaviour
     private void OnTouch()
     {
 
-        //if (PhotonNetwork.LocalPlayer.ActorNumber - 1 !=
-        //    GamePlayManager.Instance.currentPlayerIndex)
-        //{
-        //    return;
-        //}
+        if (PhotonNetwork.LocalPlayer.ActorNumber - 1 !=
+            GamePlayManager.Instance.currentPlayerIndex)
+        {
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -90,11 +90,11 @@ public class LineController : MonoBehaviour
     private void OnRelease()
     {
 
-        //if (PhotonNetwork.LocalPlayer.ActorNumber - 1 !=
-        //    GamePlayManager.Instance.currentPlayerIndex)
-        //{
-        //    return;
-        //}
+        if (PhotonNetwork.LocalPlayer.ActorNumber - 1 !=
+            GamePlayManager.Instance.currentPlayerIndex)
+        {
+            return;
+        }
 
         //strink lineDrawable
         if (drawing)
