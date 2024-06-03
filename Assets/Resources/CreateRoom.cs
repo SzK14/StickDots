@@ -40,7 +40,8 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
     // join a room
     public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(joinInputField.text);
+        String trimmedString = joinInputField.text.Trim((char)8203);
+        PhotonNetwork.JoinRoom(trimmedString);
         Debug.Log(joinInputField.text);
         Debug.Log(PhotonNetwork.CurrentRoom.Name);
         Debug.Log(PhotonNetwork.InRoom);
