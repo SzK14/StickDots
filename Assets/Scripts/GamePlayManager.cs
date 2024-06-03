@@ -105,14 +105,26 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             stream.SendNext(playerCount);
             stream.SendNext(_h);
             stream.SendNext(_w);
-            //stream.SendNext(selectedColors);
+            foreach(var color in selectedColors)
+            {
+                stream.SendNext(color.r);
+                stream.SendNext(color.g);
+                stream.SendNext(color.b);
+                stream.SendNext(color.a);
+            }
         }
         else
         {
             playerCount = (int)stream.ReceiveNext();
             _h = (int)stream.ReceiveNext();
             _w = (int)stream.ReceiveNext();
-            //selectedColors = (Color[])stream.ReceiveNext();
+            for(int i = 0; i < selectedColors.Length; i++)
+            {
+                selectedColors[i].r = (float) stream.ReceiveNext();
+                selectedColors[i].g = (float) stream.ReceiveNext();
+                selectedColors[i].b = (float) stream.ReceiveNext();
+                selectedColors[i].a = (float) stream.ReceiveNext();
+            }
         }
     }
 
@@ -127,7 +139,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     public void CreateBoardOfSize()
     {
         Transform a = FindFirstObjectByType<UIManager>().transform;
-        playerContainer = a.GetChild(2).gameObject;
+        playerContainer = a.GetChild(3).gameObject;
         // if (H == 1)
         // {
         //     _h = 4; 
