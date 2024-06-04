@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GamePlayManager : MonoBehaviour, IPunObservable
+public class GamePlayManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] private int _h = 4;
     [SerializeField] private int _w = 4;
@@ -70,21 +70,29 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        if (scene.name == "04_Local_Multiplayer" || 
-            scene.name == "05_Multiplayer")
-        {
-            playerCount += 1;
-            _playerCountText.text = playerCount.ToString();
-        }
+        //Debug.Log("OnSceneLoaded: " + scene.name);
+        //if (scene.name == "04_Local_Multiplayer" || 
+        //    scene.name == "05_Multiplayer")
+        //{
+        //    playerCount += 1;
+        //    _playerCountText.text = playerCount.ToString();
+        //}
             //photonView.RPC("CreateBoardOfSize", RpcTarget.AllBufferedViaServer);
         //CreateBoardOfSize();
+    }
+
+    public override void OnJoinedRoom()
+    {
+        playerCount += 1;
+        _playerCountText.text = playerCount.ToString();
     }
 
     void OnClickStartGame()
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            playerCount += 1;
+            PhotonNetwork.LoadLevel("04_Local_Multiplayer");
             photonView.RPC("CreateBoardOfSize", RpcTarget.AllBufferedViaServer);
         }
     }
