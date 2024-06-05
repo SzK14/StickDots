@@ -50,6 +50,7 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined");
+        GamePlayManager.Instance.JoinRoomRPC();
         //PhotonNetwork.LoadLevel(sceneToLoad);
     }
 
