@@ -41,9 +41,9 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
     {
         String trimmedString = joinInputField.text.Trim((char)8203);
         PhotonNetwork.JoinRoom(trimmedString);
-        Debug.Log(joinInputField.text);
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
-        Debug.Log(PhotonNetwork.InRoom);
+        //Debug.Log(joinInputField.text);
+        //Debug.Log(PhotonNetwork.CurrentRoom.Name);
+        //Debug.Log(PhotonNetwork.InRoom);
     }
 
     // on join room, load the gameplay scene

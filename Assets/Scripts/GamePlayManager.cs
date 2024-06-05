@@ -93,12 +93,19 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         _playerCountText.text = playerCount.ToString();
     }
 
+    [PunRPC]
+    public void LoadLevelRPC()
+    {
+        PhotonNetwork.LoadLevel("04_Local_Multiplayer");
+    }
+
     void OnClickStartGame()
     {
         if (PhotonNetwork.IsMasterClient)
         {
             //playerCount += 1;
-            PhotonNetwork.LoadLevel("04_Local_Multiplayer");
+            //PhotonNetwork.LoadLevel("04_Local_Multiplayer");
+            photonView.RPC("LoadLevelRPC", RpcTarget.AllBufferedViaServer);
             photonView.RPC("CreateBoardOfSize", RpcTarget.AllBufferedViaServer);
         }
     }
