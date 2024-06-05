@@ -131,7 +131,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            //stream.SendNext(playerCount);
+            stream.SendNext(playerCount);
             stream.SendNext(_h);
             stream.SendNext(_w);
             foreach(var player in playerColor)
@@ -144,7 +144,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         }
         else
         {
-            //playerCount = (int)stream.ReceiveNext();
+            playerCount = (int)stream.ReceiveNext();
             _h = (int)stream.ReceiveNext();
             _w = (int)stream.ReceiveNext();
             for(int i = 0; i < playerColor.Length; i++)
