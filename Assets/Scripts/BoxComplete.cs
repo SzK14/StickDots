@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -41,8 +42,8 @@ public class BoxComplete : MonoBehaviour
         // For box need to -1
         //col = GamePlayManager.Instance.W - 1;
 
-        blingMode = false;
-        ResetBling();
+        //blingMode = false;
+        //ResetBling();
     }
 
     int getBoxHash(int x, int y)
@@ -72,6 +73,15 @@ public class BoxComplete : MonoBehaviour
 
         // Add the box coordinate to the queue
         boxesToAnimate.Enqueue(boxCoordAndCapturedBy);
+
+        //change player name
+        TextMeshProUGUI tmpui = ren.gameObject.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        if (tmpui != null)
+        {
+            tmpui.text = GetPlayerName(winPlayer).Substring(0,1);
+        }
+
+
 
         // If this is the first box to animate, start the animation coroutine
         if (!isAnimating)
@@ -105,6 +115,11 @@ public class BoxComplete : MonoBehaviour
 
             ren.material.SetFloat("_HighLightOffset", 1.0f);
 
+            //change player name and show text
+            
+            
+
+
             // Wait for a brief delay before the next animation
             yield return new WaitForSeconds(0.5f);
         }
@@ -112,18 +127,23 @@ public class BoxComplete : MonoBehaviour
         isAnimating = false;
     }
 
-    private void ResetBling()
+    private string GetPlayerName(int playerId)
     {
-        blingMode = false;
+        return GamePlayManager.Instance.players[playerId].playerName;
     }
 
-    private void Update()
-    {
-        if (blingMode)
-        {
-            float offset = activeColor.GetFloat("_HighLightOffset");
-            activeColor.SetFloat("_HighLightOffset", offset + Time.deltaTime / 1.0f);
-            if (offset >= 1.0f) ResetBling();
-        }
-    }
+    //private void ResetBling()
+    //{
+    //    blingMode = false;
+    //}
+
+    //private void Update()
+    //{
+    //    if (blingMode)
+    //    {
+    //        float offset = activeColor.GetFloat("_HighLightOffset");
+    //        activeColor.SetFloat("_HighLightOffset", offset + Time.deltaTime / 1.0f);
+    //        if (offset >= 1.0f) ResetBling();
+    //    }
+    //}
 }
