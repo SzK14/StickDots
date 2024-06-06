@@ -84,6 +84,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     public void JoinRoomRPC()
     {
         photonView.RPC("GameplayJoinedRoom", RpcTarget.AllBufferedViaServer);
+        PhotonNetwork.LocalPlayer.NickName = PlayerPrefs.GetString("Name");
     }
 
     [PunRPC]
@@ -217,12 +218,12 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             {
                 GameObject playerObject = Instantiate(playerPrefab);
                 playerObject.transform.parent = playerContainer.transform;
-                playerObject.name = $"player {i + 1}";
+                playerObject.name = $"{PhotonNetwork.LocalPlayer.NickName}";
                 playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
                 players[i] = playerObject.AddComponent<Player>();
                 players[i].GetComponent<Player>().playerIndex = i;
-                players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
-                //players[i].GetComponent<Player>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+                //players[i].GetComponent<Player>().myColor = playerColor[i].myColor;
+                players[i].GetComponent<Player>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
                 Debug.Log(players[i].GetComponent<Player>().myColor);
             }
         }
@@ -236,8 +237,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             playerObject.GetComponentInChildren<TextMeshProUGUI>().text = playerObject.name;
             players[i] = playerObject.AddComponent<AIRandom>();
             players[i].GetComponent<AIRandom>().playerIndex = i;
-            players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
-            //players[i].GetComponent<AIRandom>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            //players[i].GetComponent<AIRandom>().myColor = playerColor[i].myColor;
+            players[i].GetComponent<AIRandom>().myColor = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
             Debug.Log(players[i].GetComponent<AIRandom>().myColor);
 
         }
