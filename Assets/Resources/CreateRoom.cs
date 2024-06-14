@@ -60,5 +60,12 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
         Debug.Log("PLAYERLEFT");
     }
 
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        Debug.Log("PLAYERLEFTROOM");
+    }
+
+
 
 }

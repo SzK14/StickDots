@@ -81,6 +81,11 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         //CreateBoardOfSize();
     }
 
+    public void PhotonExit()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
     public void JoinRoomRPC()
     {
         photonView.RPC("GameplayJoinedRoom", RpcTarget.AllBufferedViaServer);
