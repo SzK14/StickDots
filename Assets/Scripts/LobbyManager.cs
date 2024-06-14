@@ -34,8 +34,8 @@ public class LobbyManager : MonoBehaviour
 
     public void GameStart()
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+        //if (!PhotonNetwork.IsMasterClient)
+        //    return;
         // Slider slider = createRoomPage.GetComponentInChildren<Slider>();
         x = int.Parse(defaultXSize.text);
         y = int.Parse(defaultYSize.text);
