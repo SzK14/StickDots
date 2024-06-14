@@ -97,6 +97,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     {
         playerCount += 1;
         _playerCountText.text = playerCount.ToString();
+        Debug.Log(PhotonNetwork.CurrentRoom.Name);
+        Debug.Log(PhotonNetwork.CurrentRoom.Name.Length);
     }
 
     [PunRPC]

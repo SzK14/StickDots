@@ -14,14 +14,16 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
     public TextMeshProUGUI createInputField;
     // this holds a reference to the join input field
     public TextMeshProUGUI joinInputField;
+    public TextMeshProUGUI roomName;
     // create a room (automatically joins the room created)
     [SerializeField] string sceneToLoad;
 
     private void Awake()
     {
-        //string code = GetRandomString(4);
-        //createInputField.text = code;
-        //joinInputField.text = code;
+        string code = GetRandomString(4);
+        createInputField.text = code;
+        joinInputField.text = code;
+        roomName.text = code;
     }
 
     public string GetRandomString(int length)
@@ -33,7 +35,7 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInputField.text);
-        
+        //Debug.Log(createInputField.text.Length);
     }
     
     // join a room
