@@ -54,5 +54,11 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
         //PhotonNetwork.LoadLevel(sceneToLoad);
     }
 
-    
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        Debug.Log("PLAYERLEFT");
+    }
+
+
 }

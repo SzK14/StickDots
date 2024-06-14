@@ -108,6 +108,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
             //PhotonNetwork.LoadLevel("04_Local_Multiplayer");
             photonView.RPC("LoadLevelRPC", RpcTarget.AllBufferedViaServer);
             photonView.RPC("CreateBoardOfSize", RpcTarget.AllBufferedViaServer);
+            PhotonNetwork.CurrentRoom.IsOpen = false;
         }
     }
 
