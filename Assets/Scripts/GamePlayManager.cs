@@ -83,7 +83,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 
     public void PhotonExit()
     {
-        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveLobby();
     }
 
     public void JoinRoomRPC()
