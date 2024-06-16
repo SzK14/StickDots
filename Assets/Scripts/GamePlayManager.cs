@@ -83,6 +83,12 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         //CreateBoardOfSize();
     }
 
+    public void PhotonExitRPC()
+    {
+        photonView.RPC("PhotonExit", RpcTarget.AllBufferedViaServer);
+    }
+
+    [PunRPC]
     public void PhotonExit()
     {
         PhotonNetwork.LeaveLobby();
