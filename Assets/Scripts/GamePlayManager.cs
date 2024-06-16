@@ -33,6 +33,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     [SerializeField] private UnityEvent<Vector3> _boxCapturedEvent;
     [SerializeField] private TextMeshProUGUI _playerCountText;
     [SerializeField] private Button _gameStartButton;
+    [SerializeField] private Button _exitButton;
 
     [SerializeField] private AudioClip gameOverAudioClip;
     private AudioSource audioSource;
@@ -62,6 +63,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         photonView = PhotonView.Get(this);
         audioSource = gameObject.AddComponent<AudioSource>();
         _gameStartButton.onClick.AddListener(OnClickStartGame);
+        _exitButton.onClick.AddListener(OnPhotonExitRPC);
     }
 
     private void OnEnable()
@@ -83,7 +85,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         //CreateBoardOfSize();
     }
 
-    public void PhotonExitRPC()
+    public void OnPhotonExitRPC()
     {
         photonView.RPC("PhotonExit", RpcTarget.AllBufferedViaServer);
     }
@@ -130,6 +132,11 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            OnPhotonExitRPC();
+        }
         //if (Input.GetKeyDown(KeyCode.B))
         //{
         //    UIManager.Instance.IndicatorColorSwitch(players[currentPlayerIndex].myColor);
