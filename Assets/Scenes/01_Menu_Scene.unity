@@ -777,6 +777,7 @@ MonoBehaviour:
   _settingsMenu: {fileID: 609374489}
   _gameOptions: {fileID: 942681795}
   _nameInputField: {fileID: 594834014}
+  _namePlaceholder: {fileID: 876109189}
 --- !u!114 &594834014 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3900628507588226389, guid: 5448d985c1e16de43a4e132e5bb979ad, type: 3}
@@ -798,6 +799,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9088730024933341789, guid: 5448d985c1e16de43a4e132e5bb979ad, type: 3}
   m_PrefabInstance: {fileID: 219004555}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &876109189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3055146403513413606, guid: 5448d985c1e16de43a4e132e5bb979ad, type: 3}
+  m_PrefabInstance: {fileID: 219004555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &904746145 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3992221863035329976, guid: 5448d985c1e16de43a4e132e5bb979ad, type: 3}

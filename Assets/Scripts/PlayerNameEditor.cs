@@ -16,6 +16,7 @@ public class PlayerNameEditor : MonoBehaviour
     [SerializeField] private GameObject _gameOptions;
 
     [SerializeField] private TextMeshProUGUI _nameInputField;
+    [SerializeField] private TextMeshProUGUI _namePlaceholder;
 
     void Start()
     {
@@ -32,6 +33,10 @@ public class PlayerNameEditor : MonoBehaviour
 
             // Let the player know they need to set a profile name
         }
+        else
+        {
+            _namePlaceholder.text = PlayerPrefs.GetString("Name");
+        }
     }
 
     // Try to set the name of the player when they hit submit in the profile
@@ -40,6 +45,7 @@ public class PlayerNameEditor : MonoBehaviour
         if (_nameInputField.text != null)
         {
             SetPlayerName(_nameInputField.text);
+            _namePlaceholder.text = PlayerPrefs.GetString("Name");
         }
 
         if (PlayerPrefs.GetString("Name") == null)

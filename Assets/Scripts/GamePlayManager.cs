@@ -23,6 +23,8 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
 
     public Player[] players;
     public AIRandom[] randomAIs;
+
+    private Dictionary<int, bool> playerInGame = new Dictionary<int, bool>();
     public int currentPlayerIndex { get; private set; } = 0;
     public static GamePlayManager Instance { get; private set; }
     private int playerCount;
@@ -84,6 +86,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     public void PhotonExit()
     {
         PhotonNetwork.LeaveLobby();
+        playerInGame[PhotonNetwork.LocalPlayer.ActorNumber - 1] = false;
     }
 
     public void JoinRoomRPC()
@@ -224,6 +227,7 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
         {
             if (playerPrefab != null)
             {
+                playerInGame[i] = true;
                 GameObject playerObject = Instantiate(playerPrefab);
                 playerObject.transform.parent = playerContainer.transform;
                 playerObject.name = $"{PhotonNetwork.PlayerList[i].NickName}";
@@ -255,21 +259,28 @@ public class GamePlayManager : MonoBehaviour, IPunObservable
     }
     void StartTurn()
     {
-        players[currentPlayerIndex].BeginTurn();
-        Timer.Instance.StartTimer();
+        if (!playerInGame[currentPlayerIndex])
+        {
+            NextTurn();
+        }
+        else
+        {
+            players[currentPlayerIndex].BeginTurn();
+            Timer.Instance.StartTimer();
+        }
 
         //TODO: WHEN INTEGRATING COLOR PICKER
         //currentPlayerName.text = players[currentPlayerIndex].playerName.ToString();
     }
 
-    public void EndTurn()
-    {
-        Debug.Log("EndTurn " + currentPlayerIndex);
+    //public void EndTurn()
+    //{
+    //    Debug.Log("EndTurn " + currentPlayerIndex);
 
-        players[currentPlayerIndex].GetComponent<Player>().EndTurn();
+    //    players[currentPlayerIndex].GetComponent<Player>().EndTurn();
 
-        NextTurn();
-    }
+    //    NextTurn();
+    //}
 
     public void NextTurn()
     {

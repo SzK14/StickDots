@@ -9,18 +9,18 @@ public class DotTurn : MonoBehaviour
     {
         
     }
-    private void OnMouseDown()
-    {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        int playerIndex = GamePlayManager.Instance.currentPlayerIndex;
-        Color spriteColor = gameObject.GetComponent<SpriteRenderer>().color;
+    //private void OnMouseDown()
+    //{
+    //    if (EventSystem.current.IsPointerOverGameObject()) return;
+    //    int playerIndex = GamePlayManager.Instance.currentPlayerIndex;
+    //    Color spriteColor = gameObject.GetComponent<SpriteRenderer>().color;
 
-        spriteColor = GamePlayManager.Instance.players[playerIndex].myColor;
-        Color color = spriteColor;
-        color.a = 1f;
-        gameObject.GetComponent<SpriteRenderer>().color = color;
-        //gameObject.GetComponent<Renderer>().material.color = GamePlayManager.Instance.players[playerIndex].myColor;
+    //    spriteColor = GamePlayManager.Instance.players[playerIndex].myColor;
+    //    Color color = spriteColor;
+    //    color.a = 1f;
+    //    gameObject.GetComponent<SpriteRenderer>().color = color;
+    //    //gameObject.GetComponent<Renderer>().material.color = GamePlayManager.Instance.players[playerIndex].myColor;
 
-        GamePlayManager.Instance.EndTurn();
-    }
+    //    GamePlayManager.Instance.EndTurn();
+    //}
 }
