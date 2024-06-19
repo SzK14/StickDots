@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Linq;
 using TMPro;
@@ -32,7 +33,12 @@ public class JoinAndCreate : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(createInputField.text);
+        RoomOptions roomOpts = new RoomOptions {
+            IsVisible = true, 
+            IsOpen = true,
+            EmptyRoomTtl = 0, 
+        };
+        PhotonNetwork.CreateRoom(createInputField.text, roomOpts);
         
     }
     
