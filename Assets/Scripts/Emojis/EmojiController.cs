@@ -20,9 +20,11 @@ public class EmojiController : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Awake called");
+        if (spawnTransform != null) {
         spawnTransform = GameObject.FindGameObjectWithTag("EmojiSpawn").transform;
         canSpawnEmoji = true;
         gamePlayManager = FindAnyObjectByType<GamePlayManager>();
+        }
     }
 
     public void BTPlayEmoji()
