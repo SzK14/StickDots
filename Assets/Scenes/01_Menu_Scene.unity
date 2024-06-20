@@ -1173,6 +1173,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5076519821885407821, guid: 00708d4f56f001b46901c04e48fe86e6, type: 3}
+      propertyPath: gameModesUI
+      value: 
+      objectReference: {fileID: 463177295}
+    - target: {fileID: 5076519821885407821, guid: 00708d4f56f001b46901c04e48fe86e6, type: 3}
+      propertyPath: startGameButton
+      value: 
+      objectReference: {fileID: 1588647270}
     - target: {fileID: 7609955030966802829, guid: 00708d4f56f001b46901c04e48fe86e6, type: 3}
       propertyPath: roomName
       value: 

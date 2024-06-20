@@ -1,0 +1,5 @@
+C:/Users/alexb/Desktop/Repos/..Term4/StickDots/.utmp/RelWithDebInfo/70645k73/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/alexb/Desktop/Repos/..Term4/StickDots/.utmp/RelWithDebInfo/70645k73/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/alexb/Desktop/Repos/..Term4/StickDots/.utmp/RelWithDebInfo/70645k73/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/alexb/Desktop/Repos/..Term4/StickDots/.utmp/RelWithDebInfo/70645k73/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/alexb/Desktop/Repos/..Term4/StickDots/.utmp/RelWithDebInfo/70645k73/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

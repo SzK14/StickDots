@@ -702,6 +702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8067434532505438874, guid: 93dca05360d261d4ca40a7d0d4206ea7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1211,6 +1215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmojiUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4549277602932824224, guid: 2be58fd931fbc0c448c3abd8b3f6127f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5528754208140083991, guid: 2be58fd931fbc0c448c3abd8b3f6127f, type: 3}
       propertyPath: sceneViewId
       value: 1
@@ -1251,7 +1259,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5528754208140083991, guid: 2be58fd931fbc0c448c3abd8b3f6127f, type: 3}
+    - {fileID: 9191998824767416878, guid: 2be58fd931fbc0c448c3abd8b3f6127f, type: 3}
+    - {fileID: 4241051257287388949, guid: 2be58fd931fbc0c448c3abd8b3f6127f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
