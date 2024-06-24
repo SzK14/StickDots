@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4767877482396595442}
   - component: {fileID: 7913368434673766815}
   - component: {fileID: 8101375261318974291}
+  - component: {fileID: 3344044658158260579}
   m_Layer: 5
   m_Name: BT_Angry
   m_TagString: Untagged
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 19b33534ec328dc44800fbf695dfe367, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02181af73d4f8164098e1c301af27ff1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -124,7 +125,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7913368434673766815}
         m_TargetAssemblyTypeName: EmojiController, Assembly-CSharp
-        m_MethodName: SpawnEmoji
+        m_MethodName: BTPlayEmoji
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -149,6 +150,10 @@ MonoBehaviour:
   emojiPrefab: {fileID: 8802648617147876942, guid: 21d23772ac20c0c48997ef6599f1dfd3, type: 3}
   emojiAnimation: angry
   spawnTransform: {fileID: 0}
+  canSpawnEmoji: 1
+  emojiLifeTime: 5
+  _userIndex: 0
+  _userName: Tiago
 --- !u!95 &8101375261318974291
 Animator:
   serializedVersion: 7
@@ -171,3 +176,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3344044658158260579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021758838866205020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
