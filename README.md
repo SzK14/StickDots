@@ -1,7 +1,6 @@
 Stick Dots Copyright (C) VFS Class PG25, all rights reserved.
 ---------------------------------------
 #PG25 VFS
-last updated: 28/03/24
 Version: 3.0
 
 
@@ -62,4 +61,4 @@ PG25 Waytt
 
 
 #### Figma
-LInk to the figma file: https://www.figma.com/file/5BnQwmUGuFslWMUXtnEFzi/UI_StickyDots_P2?type=design&node-id=0-1&mode=design&t=rxF1BKk4tvJ7O5UA-0
+LInk to the figma file: (<https://www.figma.com/file/5BnQwmUGuFslWMUXtnEFzi/UI_StickyDots_P2?type=design&node-id=0-1&mode=design&t=rxF1BKk4tvJ7O5UA-0>)
